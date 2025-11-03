@@ -1,336 +1,363 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ QUANTUM ULTIMATE COMMAND CENTER</title>
+    <title>System Security Portal</title>
     <style>
-        /* AVVALGI STILLAR... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
         
-        /* PAROL TIZIMI STILLARI */
-        .password-modal {
-            display: none;
+        body {
+            background: #0a0a0a;
+            color: #00ff00;
+            overflow: hidden;
+        }
+        
+        .matrix-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .login-container {
+            display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
         }
-
-        .password-content {
-            background: var(--darker-bg);
-            border: 3px solid var(--hacker-red);
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 0 50px rgba(255, 0, 51, 0.5);
+        
+        .terminal {
+            background: #000;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            width: 600px;
+            padding: 20px;
+            box-shadow: 0 0 20px #00ff00;
+        }
+        
+        .terminal-header {
+            background: #00ff00;
+            color: #000;
+            padding: 10px;
             text-align: center;
+            font-weight: bold;
+            margin: -20px -20px 20px -20px;
+            border-radius: 8px 8px 0 0;
         }
-
-        .password-input {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid var(--matrix-green);
-            border-radius: 8px;
-            padding: 15px;
-            color: var(--matrix-green);
-            font-size: 16px;
-            margin: 20px 0;
-            text-align: center;
-            letter-spacing: 3px;
-        }
-
-        .password-input:focus {
-            box-shadow: 0 0 15px var(--matrix-green);
-            outline: none;
-        }
-
-        .attempts-counter {
-            color: var(--hacker-red);
-            font-size: 14px;
+        
+        .input-line {
+            display: flex;
+            align-items: center;
             margin: 10px 0;
         }
-
-        .access-denied {
-            border-color: var(--hacker-red);
-            background: rgba(255, 0, 51, 0.1);
+        
+        .prompt {
+            color: #00ff00;
+            margin-right: 10px;
         }
-
-        .access-granted {
-            border-color: var(--matrix-green);
-            background: rgba(0, 255, 65, 0.1);
+        
+        input {
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            outline: none;
+            flex: 1;
+            font-size: 16px;
         }
-
-        .security-alert {
-            color: var(--hacker-red);
-            font-size: 12px;
-            margin-top: 10px;
+        
+        .output {
+            margin: 10px 0;
+            min-height: 20px;
+        }
+        
+        .hidden-section {
+            display: none;
+        }
+        
+        .content-area {
+            margin-top: 20px;
+            padding: 20px;
+            background: #111;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+        }
+        
+        .code-display {
+            background: #001100;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 3px solid #00ff00;
+        }
+        
+        .blink {
             animation: blink 1s infinite;
         }
-
+        
         @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <div class="cyber-grid"></div>
-    <div class="quantum-field"></div>
-    <div class="scan-line"></div>
-
-    <!-- PAROL TEKSHIRISH MODALI -->
-    <div class="password-modal" id="passwordModal">
-        <div class="password-content">
-            <div class="panel-header" style="justify-content: center;">
-                <h2>🛡️ XAVFSIZLIK TEKSHIRISH</h2>
+    <div class="matrix-bg" id="matrixBg"></div>
+    
+    <div class="login-container">
+        <div class="terminal">
+            <div class="terminal-header">
+                🔒 SECURE SYSTEM ACCESS 🔒
             </div>
             
-            <div class="security-alert" id="securityAlert">
-                ⚠️ MAXFIY KODLARGA KIRISH UCHUN PAROL TALAB QILINADI
+            <div id="loginSection">
+                <div class="output" id="output"></div>
+                <div class="input-line">
+                    <span class="prompt">root@system:~# access_code</span>
+                    <input type="password" id="passwordInput" autocomplete="off" autofocus>
+                </div>
             </div>
-
-            <div class="attempts-counter" id="attemptsCounter">
-                Urinishlar: 0/3
+            
+            <div id="mainContent" class="hidden-section">
+                <div class="content-area">
+                    <h2>🛡️ ACTIVATION CONTROL PANEL</h2>
+                    <div class="code-display">
+                        <h3>Windows Activation Code:</h3>
+                        <p id="winCode">W1N-PR0-2024-XYZ-789</p>
+                        <button onclick="copyCode('winCode')">Copy Code</button>
+                    </div>
+                    
+                    <div class="code-display">
+                        <h3>Office Activation Code:</h3>
+                        <p id="officeCode">0FF1C3-PR0-2024-ABC</p>
+                        <button onclick="copyCode('officeCode')">Copy Code</button>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <h3>PowerShell Auto-Activator:</h3>
+                        <button onclick="downloadPS1()">Download Activator.ps1</button>
+                        <button onclick="showInstructions()">Show Instructions</button>
+                    </div>
+                </div>
             </div>
-
-            <input type="password" class="password-input" id="securityPassword" 
-                   placeholder="Maxfiy parolni kiriting..." maxlength="20"
-                   onkeypress="handlePasswordEnter(event)">
-
-            <div style="display: flex; gap: 10px; justify-content: center;">
-                <button class="btn-quantum" onclick="checkSecurityPassword()" 
-                        style="background: linear-gradient(135deg, #00ff41, #00802b);">
-                    🔓 Tasdiqlash
-                </button>
-                <button class="btn-quantum" onclick="closePasswordModal()" 
-                        style="background: linear-gradient(135deg, #ff0033, #cc0022);">
-                    🚪 Bekor Qilish
-                </button>
-            </div>
-
-            <div style="margin-top: 15px; font-size: 12px; color: #666;">
-                Faqat ruxsat etilgan foydalanuvchilar uchun
-            </div>
-        </div>
-    </div>
-
-    <!-- MAXFIY KODLAR MODALI -->
-    <div class="modal" id="secretModal" style="display:none;">
-        <!-- Avvalgi maxfiy kodlar modal contenti -->
-    </div>
-
-    <!-- ASOSIY TERMINAL -->
-    <div class="cyber-terminal">
-        <!-- Terminal header va body -->
-        
-        <!-- MAXFIY KODLAR PANELI -->
-        <div class="quantum-panel">
-            <div class="panel-header">🔐 MAXFIY KODLAR</div>
-            <button class="btn-quantum" onclick="requestSecretAccess()" 
-                    style="width:100%; margin:5px 0; background:linear-gradient(135deg, #ff0033, #cc0022);">
-                🔓 Maxfiy Kodlarni Ochish
-            </button>
-            <div style="font-size:12px; color:#666; text-align:center; margin-top:10px;">
-                ⚠️ Kirish uchun maxfiy parol talab qilinadi
-            </div>
-            <div id="accessStatus" style="font-size:11px; color:#ffff00; text-align:center; margin-top:5px;"></div>
         </div>
     </div>
 
     <script>
-        // XAVFSIZLIK KONFIGURATSIYASI
-        const SECURITY_CONFIG = {
-            masterPassword: "Asliddin0550", // Sizning shaxsiy parolingiz
-            maxAttempts: 3,
-            lockoutTime: 30000, // 30 soniya
-            allowedIPs: ["192.168.1.1", "127.0.0.1"] // Ruxsat etilgan IP manzillar
-        };
-
-        // O'ZGARUVCHILAR
-        let securityAttempts = 0;
-        let isSecurityLocked = false;
-        let currentUnlockFunction = null;
-
-        // PAROL TEKSHIRISH TIZIMI
-        function requestSecretAccess() {
-            if (isSecurityLocked) {
-                showMessage("🚨 Tizim vaqtincha qulflandi! " + (SECURITY_CONFIG.lockoutTime/1000) + " soniya kuting.", "error");
-                return;
+        // Matrix background effect
+        function createMatrix() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const matrixBg = document.getElementById('matrixBg');
+            matrixBg.appendChild(canvas);
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const chars = "01010101010101010101ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@%&";
+            const charArray = chars.split("");
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            const drops = [];
+            
+            for(let i = 0; i < columns; i++) {
+                drops[i] = 1;
             }
-
-            // Parol modalini ochish
-            document.getElementById('passwordModal').style.display = 'flex';
-            document.getElementById('securityPassword').value = '';
-            document.getElementById('securityPassword').focus();
-            document.getElementById('attemptsCounter').textContent = `Urinishlar: ${securityAttempts}/${SECURITY_CONFIG.maxAttempts}`;
             
-            // Xavfsizlik ogohlantirishini yangilash
-            updateSecurityAlert();
-        }
-
-        function checkSecurityPassword() {
-            const inputPassword = document.getElementById('securityPassword').value;
-            
-            if (inputPassword === SECURITY_CONFIG.masterPassword) {
-                // PAROL TO'G'RI
-                handleSuccessfulAccess();
-            } else {
-                // PAROL NOTO'G'RI
-                handleFailedAttempt();
+            function draw() {
+                ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = "#00ff00";
+                ctx.font = fontSize + "px courier";
+                
+                for(let i = 0; i < drops.length; i++) {
+                    const text = charArray[Math.floor(Math.random() * charArray.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
             }
-        }
-
-        function handleSuccessfulAccess() {
-            securityAttempts = 0;
-            document.getElementById('passwordModal').style.display = 'none';
-            document.getElementById('accessStatus').textContent = "✅ Kirish muvaffaqiyatli - " + new Date().toLocaleTimeString();
-            document.getElementById('accessStatus').style.color = "#00ff41";
             
-            // Maxfiy kodlar modalini ochish
-            openSecretModal();
-            
-            showMessage("🔐 MAXFIY KODLARGA KIRISH RUHSAT ETILDI", "success");
+            setInterval(draw, 35);
         }
-
-        function handleFailedAttempt() {
-            securityAttempts++;
-            document.getElementById('attemptsCounter').textContent = `Urinishlar: ${securityAttempts}/${SECURITY_CONFIG.maxAttempts}`;
-            document.getElementById('attemptsCounter').style.color = "#ff0033";
-            
-            if (securityAttempts >= SECURITY_CONFIG.maxAttempts) {
-                lockSecuritySystem();
-                showMessage("🚨 MAXIMUM URINISHLAR SONIGA YETILDI! Tizim " + (SECURITY_CONFIG.lockoutTime/1000) + " soniya qulflandi!", "error");
-            } else {
-                showMessage(`❌ Noto'g'ri parol! Qolgan urinishlar: ${SECURITY_CONFIG.maxAttempts - securityAttempts}`, "error");
-                document.getElementById('securityPassword').value = '';
-                document.getElementById('securityPassword').focus();
-            }
-        }
-
-        function lockSecuritySystem() {
-            isSecurityLocked = true;
-            document.getElementById('securityPassword').disabled = true;
-            document.getElementById('securityAlert').textContent = "🚨 TIZIM VAQTINCHA QULFLANDI!";
-            
-            setTimeout(() => {
-                isSecurityLocked = false;
-                securityAttempts = 0;
-                document.getElementById('securityPassword').disabled = false;
-                document.getElementById('passwordModal').style.display = 'none';
-                document.getElementById('accessStatus').textContent = "🔓 Tizim qulfi ochildi";
-                document.getElementById('accessStatus').style.color = "#ffff00";
-                showMessage("🔓 Xavfsizlik qulfi ochildi. Qayta urinib ko'ring.", "warning");
-            }, SECURITY_CONFIG.lockoutTime);
-        }
-
-        function closePasswordModal() {
-            document.getElementById('passwordModal').style.display = 'none';
-            showMessage("🔒 Maxfiy kodlar ochilmadi", "info");
-        }
-
-        function handlePasswordEnter(event) {
-            if (event.key === 'Enter') {
-                checkSecurityPassword();
-            }
-        }
-
-        function updateSecurityAlert() {
-            const alert = document.getElementById('securityAlert');
-            const remaining = SECURITY_CONFIG.maxAttempts - securityAttempts;
-            
-            if (remaining <= 1) {
-                alert.style.color = "#ff0033";
-                alert.textContent = "🚨 DİQQAT! Oxirgi urinish!";
-            } else if (remaining <= 2) {
-                alert.style.color = "#ffff00";
-                alert.textContent = "⚠️ Diqqat! Kam urinish qoldi";
-            } else {
-                alert.style.color = "#00ccff";
-                alert.textContent = "🛡️ Maxfiy kodlar uchun parol talab qilinadi";
-            }
-        }
-
-        // YORDAMCHI FUNKSIYALAR
-        function showMessage(message, type) {
-            addQuantumLog(message, type);
-        }
-
-        // AVVALGI FUNKSIYALAR...
-        function openSecretModal() {
-            document.getElementById('secretModal').style.display = 'flex';
-            addQuantumLog("🔐 MAXFIY KODLAR BAZASIGA KIRISH RUHSAT ETILDI", "success");
-        }
-
-        function closeSecretModal() {
-            document.getElementById('secretModal').style.display = 'none';
-            addQuantumLog("🚪 Maxfiy kodlar bazasi yopildi", "info");
-        }
-
-        function addQuantumLog(message, type = "info") {
-            const log = document.getElementById('quantumLog');
-            if (!log) return;
-            
-            const logEntry = document.createElement('div');
-            logEntry.className = 'log-entry';
-            logEntry.style.color = getColorForType(type);
-            logEntry.style.borderLeftColor = getColorForType(type);
-            logEntry.textContent = message;
-            log.appendChild(logEntry);
-            log.scrollTop = log.scrollHeight;
-        }
-
-        function getColorForType(type) {
-            const colors = {
-                'success': '#00ff41', 
-                'error': '#ff0033',
-                'warning': '#ffff00',
-                'info': '#00ccff'
-            };
-            return colors[type] || '#00ff41';
-        }
-
-        // XAVFSIZLIK MONITORINGI
-        function logSecurityEvent(event) {
-            const timestamp = new Date().toLocaleString();
-            console.log(`[SECURITY] ${timestamp} - ${event}`);
-            
-            // Haqiqiy tizimda bu serverga yuboriladi
-            localStorage.setItem('lastSecurityEvent', JSON.stringify({
-                event: event,
-                timestamp: timestamp,
-                ip: "user_ip_here" // Haqiqiy IP ni olish kerak
-            }));
-        }
-
-        // TIZIMNI ISHGA TUSHIRISH
-        document.addEventListener('DOMContentLoaded', function() {
-            addQuantumLog("🌌 QUANTUM ULTIMATE TIZIMI ISHGA TUSHDI", "quantum");
-            addQuantumLog("🛡️ Xavfsizlik tizimi faollashtirildi", "success");
-            logSecurityEvent("System initialized");
-            
-            // Foydalanuvchi harakatini monitoring qilish
-            setInterval(() => {
-                logSecurityEvent("User activity detected");
-            }, 60000); // Har 1 daqiqada
-        });
-
-        // KLAVIATURA SHORTCUTLARI
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.shiftKey && e.key === 'K') {
-                e.preventDefault();
-                requestSecretAccess();
-            }
-            if (e.key === 'Escape') {
-                closePasswordModal();
-                closeSecretModal();
+        
+        // Password check
+        const passwordInput = document.getElementById('passwordInput');
+        const output = document.getElementById('output');
+        const loginSection = document.getElementById('loginSection');
+        const mainContent = document.getElementById('mainContent');
+        
+        // Correct password (you can change this)
+        const correctPassword = "mysecret2024";
+        
+        passwordInput.addEventListener('keypress', function(e) {
+            if(e.key === 'Enter') {
+                const input = this.value;
+                output.innerHTML += `<div>> access_code: ${'*'.repeat(input.length)}</div>`;
+                
+                if(input === correctPassword) {
+                    output.innerHTML += `<div style="color:#00ff00">> Access granted! Initializing system...</div>`;
+                    setTimeout(() => {
+                        loginSection.style.display = 'none';
+                        mainContent.style.display = 'block';
+                    }, 2000);
+                } else {
+                    output.innerHTML += `<div style="color:#ff0000">> Access denied! Invalid code.</div>`;
+                    this.value = '';
+                }
             }
         });
+        
+        // Copy code function
+        function copyCode(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Code copied to clipboard!');
+            });
+        }
+        
+        // Download PowerShell script
+        function downloadPS1() {
+            const ps1Content = `# Windows & Office Auto-Activator
+# Private Use Only
+
+Write-Host "Initializing activation sequence..." -ForegroundColor Yellow
+
+# System check
+\$osInfo = Get-WmiObject -Class Win32_OperatingSystem
+\$computerName = \$env:COMPUTERNAME
+\$userName = \$env:USERNAME
+
+Write-Host "System: \$(\$osInfo.Caption)" -ForegroundColor Cyan
+Write-Host "Computer: \$computerName" -ForegroundColor Cyan
+Write-Host "User: \$userName" -ForegroundColor Cyan
+
+# Create activation form
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
+
+\$form = New-Object System.Windows.Forms.Form
+\$form.Text = "Advanced Activation Suite"
+\$form.Size = New-Object System.Drawing.Size(500, 400)
+\$form.StartPosition = "CenterScreen"
+\$form.BackColor = [System.Drawing.Color]::FromArgb(15, 15, 15)
+\$form.ForeColor = [System.Drawing.Color]::Lime
+
+# Main label
+\$label = New-Object System.Windows.Forms.Label
+\$label.Location = New-Object System.Drawing.Point(20, 20)
+\$label.Size = New-Object System.Drawing.Size(450, 30)
+\$label.Text = "SECURE ACTIVATION CONTROL PANEL"
+\$label.Font = New-Object System.Drawing.Font("Consolas", 12, [System.Drawing.FontStyle]::Bold)
+\$form.Controls.Add(\$label)
+
+# Progress bar
+\$progressBar = New-Object System.Windows.Forms.ProgressBar
+\$progressBar.Location = New-Object System.Drawing.Point(20, 70)
+\$progressBar.Size = New-Object System.Drawing.Size(450, 20)
+\$form.Controls.Add(\$progressBar)
+
+# Status textbox
+\$statusBox = New-Object System.Windows.Forms.TextBox
+\$statusBox.Location = New-Object System.Drawing.Point(20, 110)
+\$statusBox.Size = New-Object System.Drawing.Size(450, 150)
+\$statusBox.Multiline = \$true
+\$statusBox.ScrollBars = "Vertical"
+\$statusBox.BackColor = [System.Drawing.Color]::FromArgb(25, 25, 25)
+\$statusBox.ForeColor = [System.Drawing.Color]::Lime
+\$statusBox.Font = New-Object System.Drawing.Font("Consolas", 9)
+\$statusBox.Text = "System ready for activation...\r\n"
+\$form.Controls.Add(\$statusBox)
+
+# Buttons
+\$winButton = New-Object System.Windows.Forms.Button
+\$winButton.Location = New-Object System.Drawing.Point(20, 280)
+\$winButton.Size = New-Object System.Drawing.Size(120, 30)
+\$winButton.Text = "Activate Windows"
+\$winButton.BackColor = [System.Drawing.Color]::FromArgb(0, 80, 0)
+\$winButton.ForeColor = [System.Drawing.Color]::White
+\$winButton.Add_Click({
+    \$statusBox.Text += "\r\n> Starting Windows activation...\r\n"
+    for (\$i = 0; \$i -le 100; \$i += 10) {
+        \$progressBar.Value = \$i
+        Start-Sleep -Milliseconds 200
+    }
+    \$statusBox.Text += "> Windows activation completed!\\r\\n"
+})
+\$form.Controls.Add(\$winButton)
+
+\$officeButton = New-Object System.Windows.Forms.Button
+\$officeButton.Location = New-Object System.Drawing.Point(160, 280)
+\$officeButton.Size = New-Object System.Drawing.Size(120, 30)
+\$officeButton.Text = "Activate Office"
+\$officeButton.BackColor = [System.Drawing.Color]::FromArgb(0, 80, 0)
+\$officeButton.ForeColor = [System.Drawing.Color]::White
+\$officeButton.Add_Click({
+    \$statusBox.Text += "\r\n> Starting Office activation...\r\n"
+    for (\$i = 0; \$i -le 100; \$i += 10) {
+        \$progressBar.Value = \$i
+        Start-Sleep -Milliseconds 150
+    }
+    \$statusBox.Text += "> Office activation completed!\\r\\n"
+})
+\$form.Controls.Add(\$officeButton)
+
+\$autoButton = New-Object System.Windows.Forms.Button
+\$autoButton.Location = New-Object System.Drawing.Point(300, 280)
+\$autoButton.Size = New-Object System.Drawing.Size(120, 30)
+\$autoButton.Text = "Auto Activate All"
+\$autoButton.BackColor = [System.Drawing.Color]::FromArgb(80, 0, 0)
+\$autoButton.ForeColor = [System.Drawing.Color]::White
+\$autoButton.Add_Click({
+    \$statusBox.Text += "\r\n> Starting full system activation...\\r\\n"
+    for (\$i = 0; \$i -le 100; \$i += 5) {
+        \$progressBar.Value = \$i
+        Start-Sleep -Milliseconds 100
+    }
+    \$statusBox.Text += "> All activations completed successfully!\\r\\n"
+})
+\$form.Controls.Add(\$autoButton)
+
+# Show form
+\$form.Add_Shown({\$form.Activate()})
+\$form.ShowDialog() | Out-Null
+
+Write-Host "Activation process completed!" -ForegroundColor Green`;
+
+            const blob = new Blob([ps1Content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'AdvancedActivator.ps1';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        function showInstructions() {
+            alert(`ACTIVATION INSTRUCTIONS:
+
+1. Download the PowerShell script
+2. Right-click and "Run with PowerShell"
+3. Follow the on-screen instructions
+4. Use the activation codes provided above
+
+⚠️  FOR PERSONAL USE ONLY!`);
+        }
+        
+        // Initialize
+        createMatrix();
+        output.innerHTML = `<div>> System booting...</div><div>> Loading security modules...</div><div>> Ready for access code input</div>`;
     </script>
 </body>
 </html>

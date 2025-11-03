@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ QUVNOQ-CYBER COMMAND CENTER</title>
+    <title>⚡ QUANTUM ULTIMATE COMMAND CENTER</title>
     <style>
         * {
             margin: 0;
@@ -13,10 +13,12 @@
         }
 
         :root {
+            --quantum-purple: #ff00ff;
             --matrix-green: #00ff41;
             --cyber-blue: #00ccff;
             --hacker-red: #ff0033;
             --warning-yellow: #ffff00;
+            --gold: #ffd700;
             --dark-bg: #0a0a0a;
             --darker-bg: #050505;
             --terminal-bg: #001100;
@@ -29,11 +31,10 @@
             overflow-x: hidden;
             min-height: 100vh;
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 65, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(0, 204, 255, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 255, 65, 0.1) 0%, transparent 50%);
         }
 
-        /* CYBER BACKGROUND EFFECTS */
         .cyber-grid {
             position: fixed;
             top: 0;
@@ -41,41 +42,24 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px);
+                linear-gradient(rgba(255, 0, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
             background-size: 60px 60px;
             z-index: -3;
             animation: gridMove 30s linear infinite;
         }
 
-        .particle-field {
+        .quantum-field {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 65, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 204, 255, 0.05) 0%, transparent 50%);
             z-index: -2;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--matrix-green);
-            border-radius: 50%;
-            animation: particleFloat 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(60px, 60px) rotate(0.5deg); }
-        }
-
-        @keyframes particleFloat {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
 
         .scan-line {
@@ -86,107 +70,61 @@
             height: 3px;
             background: linear-gradient(90deg, 
                 transparent, 
+                var(--quantum-purple),
                 var(--matrix-green), 
                 var(--cyber-blue), 
-                var(--matrix-green), 
+                var(--gold),
                 transparent);
-            box-shadow: 0 0 20px var(--matrix-green);
+            box-shadow: 0 0 20px var(--quantum-purple);
             z-index: 999;
-            animation: scan 4s linear infinite;
+            animation: scan 3s linear infinite;
         }
 
         @keyframes scan {
             0% { top: 0%; opacity: 0.8; }
-            50% { opacity: 1; box-shadow: 0 0 30px var(--matrix-green); }
+            50% { opacity: 1; box-shadow: 0 0 30px var(--quantum-purple); }
             100% { top: 100%; opacity: 0.8; }
         }
 
-        /* MAIN TERMINAL */
         .cyber-terminal {
             max-width: 95%;
             margin: 20px auto;
             background: var(--darker-bg);
-            border: 3px solid var(--matrix-green);
+            border: 3px solid var(--quantum-purple);
             border-radius: 15px;
             box-shadow: 
-                0 0 50px rgba(0, 255, 65, 0.3),
-                inset 0 0 50px rgba(0, 255, 65, 0.1);
+                0 0 50px rgba(255, 0, 255, 0.3),
+                inset 0 0 50px rgba(255, 0, 255, 0.1);
             overflow: hidden;
             position: relative;
         }
 
         .terminal-header {
-            background: linear-gradient(135deg, var(--matrix-green), #00802b, var(--cyber-blue));
+            background: linear-gradient(135deg, var(--quantum-purple), #00ff41, #00ccff, #ffd700);
             color: black;
             padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid var(--matrix-green);
+            border-bottom: 3px solid var(--quantum-purple);
             position: relative;
         }
 
-        .header-glitch {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--cyber-blue), #ff0033);
-            opacity: 0;
-            animation: glitch 5s infinite;
-        }
-
-        @keyframes glitch {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 0.1; }
-            51% { opacity: 0; }
-            52% { opacity: 0.2; }
-            53% { opacity: 0; }
-        }
-
-        .status-display {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .status-indicator {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: var(--hacker-red);
-            animation: statusPulse 2s infinite;
-            box-shadow: 0 0 10px currentColor;
-        }
-
-        @keyframes statusPulse {
-            0%, 100% { 
-                opacity: 1; 
-                box-shadow: 0 0 10px currentColor;
-            }
-            50% { 
-                opacity: 0.5; 
-                box-shadow: 0 0 20px currentColor;
-            }
-        }
-
-        .access-badge {
-            background: linear-gradient(45deg, #ff0033, #ff6600);
-            color: white;
+        .quantum-badge {
+            background: linear-gradient(45deg, var(--quantum-purple), var(--gold));
+            color: black;
             padding: 8px 15px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
-            animation: badgeGlow 3s infinite;
+            animation: quantumGlow 2s infinite;
         }
 
-        @keyframes badgeGlow {
-            0%, 100% { box-shadow: 0 0 10px #ff0033; }
-            50% { box-shadow: 0 0 20px #ff6600; }
+        @keyframes quantumGlow {
+            0%, 100% { box-shadow: 0 0 10px var(--quantum-purple); }
+            50% { box-shadow: 0 0 20px var(--gold); }
         }
 
-        /* TERMINAL BODY */
         .terminal-body {
             padding: 30px;
             display: grid;
@@ -195,81 +133,24 @@
             min-height: 80vh;
         }
 
-        /* MAIN CONTENT AREA */
         .main-content {
             display: flex;
             flex-direction: column;
             gap: 25px;
         }
 
-        .output-log {
+        /* QUANTUM CONTROL PANELS */
+        .quantum-panel {
             background: var(--panel-bg);
             padding: 25px;
             border-radius: 12px;
-            border: 2px solid rgba(0, 255, 65, 0.3);
-            height: 300px;
-            overflow-y: auto;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .log-entry {
-            margin: 12px 0;
-            padding: 10px;
-            border-left: 4px solid var(--matrix-green);
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 0 8px 8px 0;
-            animation: logEntry 0.5s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .log-entry::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
-            animation: logShine 3s infinite;
-        }
-
-        @keyframes logEntry {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes logShine {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .success { color: #00ff41; border-color: #00ff41; }
-        .error { color: #ff0033; border-color: #ff0033; }
-        .warning { color: #ffff00; border-color: #ffff00; }
-        .info { color: #00ccff; border-color: #00ccff; }
-        .cyber { color: #ff00ff; border-color: #ff00ff; }
-
-        /* CONTROL PANELS */
-        .control-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .panel {
-            background: var(--panel-bg);
-            padding: 25px;
-            border-radius: 12px;
-            border: 2px solid rgba(0, 255, 65, 0.2);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--quantum-purple);
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.2);
             transition: all 0.3s ease;
         }
 
-        .panel:hover {
-            border-color: var(--matrix-green);
-            box-shadow: 0 8px 25px rgba(0, 255, 65, 0.2);
+        .quantum-panel:hover {
+            box-shadow: 0 8px 25px rgba(255, 0, 255, 0.4);
             transform: translateY(-5px);
         }
 
@@ -279,13 +160,13 @@
             gap: 10px;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+            border-bottom: 1px solid var(--quantum-purple);
+            color: var(--quantum-purple);
         }
 
-        /* BUTTONS */
-        .btn {
-            background: linear-gradient(135deg, var(--matrix-green), #00802b);
-            color: black;
+        .btn-quantum {
+            background: linear-gradient(135deg, var(--quantum-purple), #cc00cc);
+            color: white;
             border: none;
             padding: 15px 25px;
             border-radius: 8px;
@@ -295,214 +176,39 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            font-size: 14px;
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn:hover {
+        .btn-quantum:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 255, 65, 0.4);
+            box-shadow: 0 8px 20px rgba(255, 0, 255, 0.4);
         }
 
-        .btn-danger {
-            background: linear-gradient(135deg, var(--hacker-red), #cc0022);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, var(--warning-yellow), #cc9900);
-            color: black;
-        }
-
-        .btn-cyber {
-            background: linear-gradient(135deg, var(--cyber-blue), #0066cc);
-        }
-
-        .btn-secret {
-            background: linear-gradient(135deg, #ff00ff, #cc00cc);
-            color: white;
-        }
-
-        /* SIDEBAR */
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .monitor-panel {
-            background: var(--panel-bg);
+        /* QUANTUM MONITOR */
+        .quantum-monitor {
+            background: rgba(0, 0, 0, 0.7);
             padding: 20px;
-            border-radius: 12px;
-            border: 2px solid rgba(0, 204, 255, 0.3);
+            border-radius: 10px;
+            border: 2px solid var(--quantum-purple);
+            margin: 10px 0;
         }
 
-        .gauge {
+        .quantum-gauge {
             width: 100%;
-            height: 20px;
+            height: 25px;
             background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
+            border-radius: 12px;
             margin: 10px 0;
             overflow: hidden;
             position: relative;
+            border: 1px solid var(--quantum-purple);
         }
 
         .gauge-fill {
             height: 100%;
-            border-radius: 10px;
+            border-radius: 12px;
             transition: width 1s ease;
             position: relative;
-        }
-
-        .gauge-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: gaugeShine 2s infinite;
-        }
-
-        @keyframes gaugeShine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* ACTIVATION CODES */
-        .activation-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .code-box {
-            background: rgba(0, 40, 0, 0.6);
-            padding: 25px;
-            border-radius: 10px;
-            border: 2px solid var(--matrix-green);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .code-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
-            animation: codeGlow 3s infinite;
-        }
-
-        @keyframes codeGlow {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-
-        .code-value {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
-            border: 1px dashed var(--matrix-green);
-            font-family: 'Monaco', 'Consolas', monospace;
-            word-break: break-all;
-            position: relative;
-        }
-
-        /* COMMAND INPUT */
-        .command-input {
-            display: flex;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .command-input input {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid var(--matrix-green);
-            border-radius: 8px;
-            padding: 15px;
-            color: var(--matrix-green);
-            font-size: 16px;
-            outline: none;
-        }
-
-        .command-input input:focus {
-            box-shadow: 0 0 15px var(--matrix-green);
-        }
-
-        /* MODAL STYLES */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: var(--darker-bg);
-            border: 3px solid var(--matrix-green);
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 0 50px rgba(0, 255, 65, 0.5);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--matrix-green);
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--matrix-green);
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .secret-code-display {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 8px;
-            border: 2px solid #ff00ff;
-            margin: 20px 0;
-            font-family: 'Monaco', 'Consolas', monospace;
-            word-break: break-all;
-            text-align: center;
-            font-size: 18px;
+            background: linear-gradient(90deg, var(--quantum-purple), var(--cyber-blue));
         }
 
         /* RESPONSIVE */
@@ -510,779 +216,305 @@
             .terminal-body {
                 grid-template-columns: 1fr;
             }
-            
-            .sidebar {
-                order: -1;
-            }
-        }
-
-        /* UTILITY CLASSES */
-        .hidden {
-            display: none !important;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .mb-20 {
-            margin-bottom: 20px;
-        }
-
-        .mt-20 {
-            margin-top: 20px;
-        }
-
-        .glow-text {
-            text-shadow: 0 0 10px currentColor;
-        }
-
-        /* CYBER SPINNER */
-        .cyber-spinner {
-            width: 60px;
-            height: 60px;
-            border: 3px solid transparent;
-            border-top: 3px solid var(--matrix-green);
-            border-right: 3px solid var(--cyber-blue);
-            border-bottom: 3px solid var(--hacker-red);
-            border-radius: 50%;
-            animation: cyberSpin 2s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes cyberSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="cyber-grid"></div>
-    <div class="particle-field" id="particleField"></div>
+    <div class="quantum-field"></div>
     <div class="scan-line"></div>
-
-    <!-- SECRET CODE MODAL -->
-    <div class="modal" id="secretModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>🔐 MAXFIY KOD KIRISH</h2>
-                <button class="close-modal" onclick="closeSecretModal()">×</button>
-            </div>
-            <div class="input-group">
-                <span class="prompt">root@secret:~# access_code</span>
-                <input type="password" id="secretPasswordInput" placeholder="Maxfiy kodni kiriting..." autocomplete="off">
-            </div>
-            <div id="secretCodeDisplay" class="secret-code-display hidden">
-                <h3>⚡ MAXFIY POWER SHELL KODI:</h3>
-                <div class="code-value" id="secretCodeValue">irm https://get.activated.win | iex</div>
-                <button class="btn btn-secret" onclick="copySecretCode()">📋 Kodni Nusxalash</button>
-            </div>
-            <div class="text-center mt-20">
-                <button class="btn" onclick="checkSecretPassword()">🔓 Kirish</button>
-                <button class="btn btn-danger" onclick="closeSecretModal()">🚪 Yopish</button>
-            </div>
-        </div>
-    </div>
 
     <div class="cyber-terminal">
         <div class="terminal-header">
-            <div class="header-glitch"></div>
             <div class="status-display">
-                <div class="status-indicator" id="statusIndicator"></div>
-                <h1>⚡ QUVNOQ-CYBER COMMAND CENTER</h1>
+                <div class="status-indicator" style="background: var(--quantum-purple); animation: statusPulse 1s infinite;"></div>
+                <h1>⚡ QUANTUM ULTIMATE COMMAND CENTER</h1>
             </div>
-            <div class="access-badge" id="accessBadge">MAXFIY DARAJASI: ALPHA</div>
+            <div class="quantum-badge">MAXFIY DARAJASI: QUANTUM ULTIMATE</div>
         </div>
 
         <div class="terminal-body">
-            <!-- LOGIN SECTION -->
-            <div id="loginSection">
-                <div class="main-content">
-                    <div class="output-log" id="outputLog">
-                        <div class="log-entry info">🛡️ QUVNOQ-CYBER TIZIMI ISHGA TUSHRILMOQDA...</div>
-                        <div class="log-entry info">🔍 BIOS VA UEFI TEKSHIRILMOQDA...</div>
-                        <div class="log-entry success">✅ KRYPTONIK SHIFRLASH FAOLLASHTIRILDI</div>
-                        <div class="log-entry success">✅ QUANTUM XAVFSIZLIK PROTOKOLI YUKLANDI</div>
-                        <div class="log-entry warning">⚠️ KIRISH TASDIQLANMAGAN - ACCESS KODI TALAB QILINADI</div>
+            <div class="main-content">
+                <!-- QUANTUM ACTIVATION SYSTEM -->
+                <div class="quantum-panel">
+                    <div class="panel-header">🎯 QUANTUM AKTIVATSIYA TIZIMI</div>
+                    <div class="activation-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        <div class="code-box" style="border-color: var(--quantum-purple);">
+                            <h3>🌌 QUANTUM WINDOWS</h3>
+                            <div class="code-value">QUANTUM-W1N-ULTRA-2024-M4ST3R</div>
+                            <button class="btn-quantum" onclick="quantumCopy('win')">📋 Nusxalash</button>
+                        </div>
+                        <div class="code-box" style="border-color: var(--cyber-blue);">
+                            <h3>🚀 QUANTUM OFFICE</h3>
+                            <div class="code-value">QUANTUM-0FF1C3-PR0-ULTRA-X</div>
+                            <button class="btn-quantum" onclick="quantumCopy('office')">📋 Nusxalash</button>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="control-grid">
-                        <div class="panel">
-                            <div class="panel-header">🔐 KIRISH NAZORATI</div>
-                            <div class="input-group">
-                                <span class="prompt">root@quvnoq-cyber:~# access_code</span>
-                                <input type="password" id="passwordInput" placeholder="Kirish kodini kiriting..." autocomplete="off" autofocus>
-                            </div>
-                            <div class="attempt-counter" id="attemptCounter">Urinishlar: 0/3</div>
-                        </div>
+                <!-- QUANTUM CONTROL MATRIX -->
+                <div class="quantum-panel">
+                    <div class="panel-header">🎮 QUANTUM NAZORAT MATRIXASI</div>
+                    <div class="control-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <button class="btn-quantum" onclick="quantumAutoActivate()">🚀 Quantum Aktivatsiya</button>
+                        <button class="btn-quantum" onclick="quantumSecurityScan()">🔍 Quantum Skanerlash</button>
+                        <button class="btn-quantum" onclick="quantumOptimize()">⚡ Quantum Optimizatsiya</button>
+                        <button class="btn-quantum" onclick="quantumNetworkAttack()">🌐 Quantum Hujum</button>
+                        <button class="btn-quantum" onclick="quantumDecrypt()">🔓 Quantum Decrypt</button>
+                        <button class="btn-quantum" onclick="quantumBackup()">💾 Quantum Backup</button>
+                        <button class="btn-quantum" onclick="quantumMonitor()">📊 Quantum Monitoring</button>
+                        <button class="btn-quantum" onclick="quantumFirewall()">🛡️ Quantum Firewall</button>
+                    </div>
+                </div>
 
-                        <div class="panel">
-                            <div class="panel-header">🛡️ XAVFSIZLIK HOLATI</div>
-                            <div>Firewall: <span style="color:#00ff41">FAOL</span></div>
-                            <div>Encryption: <span style="color:#00ff41">AES-512</span></div>
-                            <div>VPN: <span style="color:#ff0033">O'CHIRILGAN</span></div>
-                            <div>Monitoring: <span style="color:#ffff00">FAOL</span></div>
-                        </div>
+                <!-- QUANTUM COMMAND TERMINAL -->
+                <div class="quantum-panel">
+                    <div class="panel-header">⚡ QUANTUM BUYRUQLAR TERMINALI</div>
+                    <div class="command-input">
+                        <input type="text" id="quantumCommand" placeholder="Quantum buyrug'ini kiriting..." 
+                               style="flex:1; background:rgba(0,0,0,0.5); border:2px solid var(--quantum-purple); 
+                                      border-radius:8px; padding:15px; color:var(--matrix-green);">
+                        <button class="btn-quantum" onclick="executeQuantumCommand()">⚡ Bajarish</button>
+                    </div>
+                    <div class="output-log" id="quantumLog" style="height: 200px; background: rgba(0,0,0,0.3); 
+                                                                  border: 1px solid var(--quantum-purple); 
+                                                                  border-radius: 8px; padding: 15px; 
+                                                                  overflow-y: auto; margin-top: 15px;">
+                        <div class="log-entry" style="color: var(--quantum-purple);">🌌 QUANTUM TERMINAL ISHGA TUSHDI...</div>
+                    </div>
+                </div>
+
+                <!-- QUANTUM SYSTEM MONITOR -->
+                <div class="quantum-panel">
+                    <div class="panel-header">📊 QUANTUM TIZIM MONITORI</div>
+                    <div class="quantum-monitor">
+                        <div>Quantum CPU: <span id="qCpu">0%</span></div>
+                        <div class="quantum-gauge"><div class="gauge-fill" id="qCpuGauge" style="width: 0%;"></div></div>
+                        
+                        <div>Quantum RAM: <span id="qRam">0%</span></div>
+                        <div class="quantum-gauge"><div class="gauge-fill" id="qRamGauge" style="width: 0%;"></div></div>
+                        
+                        <div>Quantum Network: <span id="qNetwork">0 Gbps</span></div>
+                        <div class="quantum-gauge"><div class="gauge-fill" id="qNetworkGauge" style="width: 0%;"></div></div>
+                        
+                        <div>Quantum Power: <span id="qPower">0%</span></div>
+                        <div class="quantum-gauge"><div class="gauge-fill" id="qPowerGauge" style="width: 0%;"></div></div>
                     </div>
                 </div>
             </div>
 
-            <!-- MAIN CONTENT (HIDDEN INITIALLY) -->
-            <div id="mainContent" class="hidden">
-                <div class="main-content">
-                    <!-- ACTIVATION CODES -->
-                    <div class="panel">
-                        <div class="panel-header">🎯 AKTIVATSIYA KODLARI</div>
-                        <div class="activation-grid">
-                            <div class="code-box">
-                                <h3>🪟 WINDOWS ULTIMATE</h3>
-                                <div class="code-value" id="winCode">W1N-QUVN0Q-2024-ULTRA-M4ST3R</div>
-                                <button class="btn" onclick="copyCode('winCode')">📋 Nusxalash</button>
-                                <button class="btn btn-cyber" onclick="generateNewCode('winCode')">🔄 Yangilash</button>
-                            </div>
-                            <div class="code-box">
-                                <h3>📊 OFFICE PRO</h3>
-                                <div class="code-value" id="officeCode">0FF1C3-PR0-2024-QUVN0Q-X</div>
-                                <button class="btn" onclick="copyCode('officeCode')">📋 Nusxalash</button>
-                                <button class="btn btn-cyber" onclick="generateNewCode('officeCode')">🔄 Yangilash</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CONTROL PANEL -->
-                    <div class="panel">
-                        <div class="panel-header">🎮 ASOSIY NAZORAT PANELI</div>
-                        <div class="control-grid">
-                            <button class="btn" onclick="autoActivateSystem()">🚀 Avtomatik Aktivatsiya</button>
-                            <button class="btn btn-cyber" onclick="runSecurityScan()">🔍 Tizim Skanerlash</button>
-                            <button class="btn" onclick="optimizeSystem()">⚡ Tizim Optimizatsiya</button>
-                            <button class="btn btn-warning" onclick="startNetworkAttack()">🌐 Tarmoq Testi</button>
-                            <button class="btn btn-cyber" onclick="decryptFiles()">🔓 Fayllarni Shifrdan Chiqarish</button>
-                            <button class="btn" onclick="backupSystem()">💾 Tizim Backup</button>
-                            <button class="btn btn-secret" onclick="openSecretModal()">🔐 Secret Code</button>
-                        </div>
-                    </div>
-
-                    <!-- COMMAND TERMINAL -->
-                    <div class="panel">
-                        <div class="panel-header">⚡ KIBER BUYRUQLAR TERMINALI</div>
-                        <div class="command-input">
-                            <input type="text" id="commandInput" placeholder="Buyruq kiriting (help ko'rsatish uchun)" list="commands">
-                            <datalist id="commands">
-                                <option value="scan">
-                                <option value="optimize">
-                                <option value="attack">
-                                <option value="decrypt">
-                                <option value="backup">
-                                <option value="monitor">
-                                <option value="firewall">
-                                <option value="vpn">
-                                <option value="clear">
-                            </datalist>
-                            <button class="btn" onclick="executeCommand()">⚡ Bajarish</button>
-                        </div>
-                        <div class="output-log" id="commandLog" style="height: 200px;"></div>
+            <!-- QUANTUM SIDEBAR -->
+            <div class="sidebar">
+                <!-- QUANTUM SECURITY STATUS -->
+                <div class="quantum-panel">
+                    <div class="panel-header">🛡️ QUANTUM XAVFSIZLIK</div>
+                    <div id="quantumSecurity">
+                        <div>Quantum Firewall: <span style="color:#00ff41">✔ AKTIV</span></div>
+                        <div>Quantum Encryption: <span style="color:#00ff41">✔ AES-1024</span></div>
+                        <div>Quantum VPN: <span style="color:#00ff41">✔ FAOL</span></div>
+                        <div>Quantum AI Defense: <span style="color:#00ff41">✔ AKTIV</span></div>
+                        <div>Threat Level: <span style="color:#00ff41">✔ 0</span></div>
                     </div>
                 </div>
 
-                <!-- SIDEBAR -->
-                <div class="sidebar">
-                    <!-- SYSTEM MONITOR -->
-                    <div class="monitor-panel">
-                        <div class="panel-header">📊 REAL-TIME MONITOR</div>
-                        <div>CPU Usage: <span id="cpuUsage">0%</span></div>
-                        <div class="gauge"><div class="gauge-fill" id="cpuGauge" style="width: 0%; background: #00ff41;"></div></div>
-                        
-                        <div>RAM Usage: <span id="ramUsage">0%</span></div>
-                        <div class="gauge"><div class="gauge-fill" id="ramGauge" style="width: 0%; background: #00ccff;"></div></div>
-                        
-                        <div>Network: <span id="networkStatus">0 Mbps</span></div>
-                        <div class="gauge"><div class="gauge-fill" id="networkGauge" style="width: 0%; background: #ff00ff;"></div></div>
-                    </div>
+                <!-- QUANTUM TOOLS -->
+                <div class="quantum-panel">
+                    <div class="panel-header">🔧 QUANTUM ASBOBLAR</div>
+                    <button class="btn-quantum" onclick="quantumAI()">🤖 Quantum AI</button>
+                    <button class="btn-quantum" onclick="quantumCrypto()">🔐 Quantum Shifrlash</button>
+                    <button class="btn-quantum" onclick="quantumStealth()">👻 Quantum Yashirin</button>
+                    <button class="btn-quantum" onclick="quantumOverride()">🎯 Quantum Nazorat</button>
+                </div>
 
-                    <!-- SECURITY STATUS -->
-                    <div class="monitor-panel">
-                        <div class="panel-header">🛡️ XAVFSIZLIK HOLATI</div>
-                        <div id="securityStatus">
-                            <div>Firewall: <span class="glow-text" style="color:#00ff41">✔ FAOL</span></div>
-                            <div>Antivirus: <span class="glow-text" style="color:#00ff41">✔ FAOL</span></div>
-                            <div>Encryption: <span class="glow-text" style="color:#ffff00">⚠ TEKSHIRILMOQDA</span></div>
-                            <div>Threats: <span class="glow-text" style="color:#ff0033">✘ 3 TA</span></div>
-                        </div>
-                    </div>
-
-                    <!-- QUICK ACTIONS -->
-                    <div class="panel">
-                        <div class="panel-header">⚡ TEZKOR HARAKATLAR</div>
-                        <button class="btn btn-danger" onclick="emergencyLockdown()">🚨 Emergency Lockdown</button>
-                        <button class="btn btn-warning" onclick="clearLogs()">🗑️ Loglarni Tozalash</button>
-                        <button class="btn" onclick="logout()">🚪 Tizimdan Chiqish</button>
-                    </div>
+                <!-- QUANTUM EMERGENCY -->
+                <div class="quantum-panel">
+                    <div class="panel-header">🚨 QUANTUM FAVQULODDA</div>
+                    <button class="btn-quantum" style="background:linear-gradient(135deg, #ff0033, #cc0022);" 
+                            onclick="quantumLockdown()">🔴 Quantum Qulf</button>
+                    <button class="btn-quantum" style="background:linear-gradient(135deg, #ffff00, #cc9900); color:black;" 
+                            onclick="quantumReset()">🔄 Quantum Qayta</button>
+                    <button class="btn-quantum" style="background:linear-gradient(135deg, #00ff41, #00802b);" 
+                            onclick="quantumLogout()">🚪 Quantum Chiqish</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== KONFIGURATSIYA ====================
-        const CONFIG = {
-            correctPassword: "quvnoq2024",
-            secretPassword: "Asliddin0550",
-            maxAttempts: 3,
-            lockoutTime: 30000
-        };
-
-        // ==================== O'ZGARUVCHILAR ====================
-        let attempts = 0;
-        let isLocked = false;
-        let systemMonitorInterval;
-        let networkMonitorInterval;
-        let secretAttempts = 0;
-
-        // ==================== ELEMENTLAR ====================
-        const elements = {
-            passwordInput: document.getElementById('passwordInput'),
-            outputLog: document.getElementById('outputLog'),
-            commandLog: document.getElementById('commandLog'),
-            loginSection: document.getElementById('loginSection'),
-            mainContent: document.getElementById('mainContent'),
-            attemptCounter: document.getElementById('attemptCounter'),
-            statusIndicator: document.getElementById('statusIndicator'),
-            accessBadge: document.getElementById('accessBadge'),
-            secretModal: document.getElementById('secretModal'),
-            secretPasswordInput: document.getElementById('secretPasswordInput'),
-            secretCodeDisplay: document.getElementById('secretCodeDisplay')
-        };
-
-        // ==================== INITSIALIZATSIYA ====================
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            addLog("🚀 QUVNOQ-CYBER TIZIMI ISHGA TUSHDI", "cyber");
-            addLog("📍 Tizim " + new Date().toLocaleString() + " da faollashtirildi", "info");
-        });
-
-        // ==================== PARTICLE EFFECT ====================
-        function createParticles() {
-            const particleField = document.getElementById('particleField');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 15) + 's';
-                particleField.appendChild(particle);
-            }
-        }
-
-        // ==================== KIRISH TIZIMI ====================
-        elements.passwordInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const input = this.value.trim();
-                
-                if (isLocked) {
-                    addLog("🚨 TIZIM VAQTINCHA QULFLANDI! " + (CONFIG.lockoutTime/1000) + " soniya kuting.", "error");
-                    return;
-                }
-
-                addLog(`> access_code: ${'•'.repeat(input.length)}`, "info");
-
-                if (input === CONFIG.correctPassword) {
-                    handleSuccessfulAccess();
-                } else {
-                    handleFailedAttempt();
-                }
-
-                this.value = '';
-            }
-        });
-
-        function handleSuccessfulAccess() {
-            attempts = 0;
-            updateAttemptCounter();
-            
-            addLog("✅ ACCESS KODI TASDIQLANDI", "success");
-            addLog("🔓 KRIPTONIK QULF OCHILMOQDA...", "info");
-            addLog("📡 QUANTUM TARMOQGA ULANMOQDA...", "info");
-
-            elements.statusIndicator.style.background = "#00ff41";
-            elements.statusIndicator.style.animation = "none";
-            elements.accessBadge.style.background = "linear-gradient(45deg, #00ff41, #00802b)";
-
-            setTimeout(() => {
-                elements.loginSection.classList.add('hidden');
-                elements.mainContent.classList.remove('hidden');
-                addLog("🎉 QUVNOQ-CYBER TIZIMIGA XUSH KELIBSIZ!", "cyber");
-                startSystemMonitors();
-                startNetworkMonitor();
-            }, 2500);
-        }
-
-        function handleFailedAttempt() {
-            attempts++;
-            updateAttemptCounter();
-
-            if (attempts >= CONFIG.maxAttempts) {
-                lockSystem();
-                addLog("🚨 MAXIMUM URINISHLAR SONIGA YETILDI! Tizim " + (CONFIG.lockoutTime/1000) + " soniya qulflandi!", "error");
-            } else {
-                addLog(`❌ NOTO'G'RI KOD! Qolgan urinishlar: ${CONFIG.maxAttempts - attempts}`, "error");
-            }
-        }
-
-        function updateAttemptCounter() {
-            elements.attemptCounter.textContent = `Urinishlar: ${attempts}/${CONFIG.maxAttempts}`;
-            
-            if (attempts >= 2) {
-                elements.attemptCounter.style.background = "rgba(255, 0, 51, 0.5)";
-            }
-        }
-
-        function lockSystem() {
-            isLocked = true;
-            elements.passwordInput.disabled = true;
-            
-            setTimeout(() => {
-                isLocked = false;
-                elements.passwordInput.disabled = false;
-                attempts = 0;
-                updateAttemptCounter();
-                addLog("🔓 Tizim qulfi ochildi. Qayta urinib ko'ring.", "warning");
-            }, CONFIG.lockoutTime);
-        }
-
-        // ==================== SECRET CODE SYSTEM ====================
-        function openSecretModal() {
-            elements.secretModal.style.display = 'flex';
-            elements.secretPasswordInput.value = '';
-            elements.secretCodeDisplay.classList.add('hidden');
-            elements.secretPasswordInput.focus();
-            secretAttempts = 0;
-        }
-
-        function closeSecretModal() {
-            elements.secretModal.style.display = 'none';
-            elements.secretCodeDisplay.classList.add('hidden');
-        }
-
-        function checkSecretPassword() {
-            const input = elements.secretPasswordInput.value.trim();
-            
-            if (input === CONFIG.secretPassword) {
-                elements.secretCodeDisplay.classList.remove('hidden');
-                addLog("🔐 MAXFIY KOD MUVAFFAQIYATLI OCHILDI", "cyber");
-            } else {
-                secretAttempts++;
-                if (secretAttempts >= 2) {
-                    alert("❌ Noto'g'ri kod! Qolgan urinish: 1");
-                } else if (secretAttempts >= 3) {
-                    alert("🚨 Maxfiy kod tizimi bloklandi!");
-                    closeSecretModal();
-                } else {
-                    alert("❌ Noto'g'ri maxfiy kod!");
-                }
-            }
-        }
-
-        function copySecretCode() {
-            const code = "irm https://get.activated.win | iex";
-            navigator.clipboard.writeText(code).then(() => {
-                alert("✅ Maxfiy kod nusxalandi!");
-                addLog("📋 Maxfiy PowerShell kodi nusxalandi", "success");
-            });
-        }
-
-        // ==================== SYSTEM MONITORS ====================
-        function startSystemMonitors() {
-            systemMonitorInterval = setInterval(() => {
-                const cpuUsage = 20 + Math.floor(Math.random() * 60);
-                const ramUsage = 30 + Math.floor(Math.random() * 50);
-                const networkSpeed = (Math.random() * 1000).toFixed(2);
-                
-                document.getElementById('cpuUsage').textContent = cpuUsage + '%';
-                document.getElementById('ramUsage').textContent = ramUsage + '%';
-                document.getElementById('networkStatus').textContent = networkSpeed + ' Mbps';
-                
-                document.getElementById('cpuGauge').style.width = cpuUsage + '%';
-                document.getElementById('ramGauge').style.width = ramUsage + '%';
-                document.getElementById('networkGauge').style.width = Math.min(100, networkSpeed / 10) + '%';
-            }, 2000);
-        }
-
-        function startNetworkMonitor() {
-            networkMonitorInterval = setInterval(() => {
-                const connections = ['GOOGLE', 'MICROSOFT', 'CLOUDFLARE', 'AKAMAI', 'QUANTUM'];
-                const connection = connections[Math.floor(Math.random() * connections.length)];
-                const latency = Math.floor(Math.random() * 100);
-                
-                addCommandLog(`🌐 ${connection} | Ping: ${latency}ms | Secure: ${latency < 50 ? 'YES' : 'NO'}`, "info");
-            }, 5000);
-        }
-
-        // ==================== ASOSIY FUNKSIYALAR ====================
-        function autoActivateSystem() {
-            addLog("🚀 AVTOMATIK AKTIVATSIYA BOSHLANDI...", "warning");
+        // QUANTUM SYSTEM FUNCTIONS
+        function quantumAutoActivate() {
+            addQuantumLog("🚀 QUANTUM AKTIVATSIYA BOSHLANDI...", "quantum");
             
             const processes = [
-                {name: "Windows License Activation", time: 1000},
-                {name: "Office Product Activation", time: 2000},
-                {name: "System Registry Update", time: 3000},
-                {name: "Security Protocols", time: 4000},
-                {name: "Final Verification", time: 5000}
+                "Quantum License Activation",
+                "AI Neural Network Load", 
+                "Quantum Encryption Setup",
+                "System Override Protocols",
+                "Final Quantum Verification"
             ];
             
             processes.forEach((process, index) => {
                 setTimeout(() => {
-                    addLog(`🔧 ${process.name}...`, "info");
+                    addQuantumLog(`🔧 ${process}...`, "info");
                     if (index === processes.length - 1) {
                         setTimeout(() => {
-                            addLog("✅ BARCHA AKTIVATSIYALAR MUVAFFAQIYATLI YAKUNLANDI!", "success");
-                        }, 1000);
-                    }
-                }, process.time);
-            });
-        }
-
-        function runSecurityScan() {
-            addLog("🔍 TIZIM XAVFSIZLIK SKANERLASHI BOSHLANDI...", "warning");
-            
-            const threats = ['Trojan.Win32', 'Ransomware.Crypto', 'Spyware.Keylogger', 'Rootkit.Bootkit'];
-            const foundThreats = threats.filter(() => Math.random() > 0.5);
-            
-            setTimeout(() => {
-                if (foundThreats.length > 0) {
-                    foundThreats.forEach(threat => {
-                        addLog(`⚠️ XAVFLI DASTUR ANQILANDI: ${threat}`, "error");
-                    });
-                    addLog(`🚨 ${foundThreats.length} TA XAVFLI DASTUR TOPILDI!`, "error");
-                } else {
-                    addLog("✅ HECH QANDAY XAVF ANQILANMADI", "success");
-                }
-            }, 3000);
-        }
-
-        function optimizeSystem() {
-            addLog("⚡ TIZIM OPTIMIZATSIYASI BOSHLANDI...", "warning");
-            
-            const optimizations = [
-                "Registry Optimization",
-                "Disk Defragmentation", 
-                "Cache Clearing",
-                "Service Optimization",
-                "Network Optimization",
-                "Security Enhancement"
-            ];
-            
-            optimizations.forEach((opt, index) => {
-                setTimeout(() => {
-                    addLog(`🔧 ${opt}...`, "info");
-                    const progress = Math.floor(((index + 1) / optimizations.length) * 100);
-                    addLog(`📊 Progress: ${progress}%`, "info");
-                    
-                    if (index === optimizations.length - 1) {
-                        setTimeout(() => {
-                            addLog("✅ TIZIM OPTIMIZATSIYASI YAKUNLANDI!", "success");
-                            addLog("🎯 Tizim tezligi 35% oshirildi", "success");
+                            addQuantumLog("✅ QUANTUM AKTIVATSIYA MUVAFFAQIYATLI!", "success");
                         }, 1000);
                     }
                 }, (index + 1) * 1500);
             });
         }
 
-        function startNetworkAttack() {
-            addLog("🌐 TARMOQ XAVFSIZLIK TESTI BOSHLANDI...", "warning");
-            addLog("🔍 Zaifliklar skanerlanmoqda...", "info");
+        function quantumSecurityScan() {
+            addQuantumLog("🔍 QUANTUM SKANERLASH BOSHLANDI...", "quantum");
+            
+            setTimeout(() => {
+                addQuantumLog("🌌 Quantum to'lqinlari skanerlayapti...", "info");
+                addQuantumLog("🤖 AI tizimni tahli qilmoqda...", "info");
+                addQuantumLog("🔐 Kriptonik himoya faollashtirildi", "success");
+                addQuantumLog("✅ QUANTUM SKANERLASH YAKUNLANDI - 0 XAVF", "success");
+            }, 3000);
+        }
+
+        function quantumNetworkAttack() {
+            addQuantumLog("🌐 QUANTUM TARMOQ HUJUMI BOSHLANDI...", "warning");
             
             const attacks = [
-                "Port Scanning",
-                "Vulnerability Assessment", 
-                "Penetration Testing",
-                "Firewall Testing",
-                "DDoS Protection Check"
+                "Quantum Port Scanning",
+                "AI Vulnerability Detection",
+                "Neural Network Penetration", 
+                "Quantum Encryption Break",
+                "System Override Attack"
             ];
             
             attacks.forEach((attack, index) => {
                 setTimeout(() => {
-                    addLog(`🛡️ ${attack} bajarilmoqda...`, "info");
-                    const success = Math.random() > 0.3;
+                    addQuantumLog(`💥 ${attack} bajarilmoqda...`, "info");
                     
                     setTimeout(() => {
-                        if (success) {
-                            addLog(`✅ ${attack} - MUVAFFAQIYATLI`, "success");
-                        } else {
-                            addLog(`⚠️ ${attack} - XATOLIK`, "warning");
-                        }
+                        addQuantumLog(`✅ ${attack} - MUVAFFAQIYATLI`, "success");
                         
                         if (index === attacks.length - 1) {
-                            addLog("🎯 Tarmoq xavfsizlik testi yakunlandi", "success");
+                            addQuantumLog("🎯 QUANTUM HUJUM YAKUNLANDI - 100% MUVAFFAQIYAT", "cyber");
                         }
                     }, 1000);
                 }, (index + 1) * 2000);
             });
         }
 
-        function decryptFiles() {
-            addLog("🔓 FAYLLAR SHIFRDAN CHIQARILMOQDA...", "warning");
+        function quantumDecrypt() {
+            addQuantumLog("🔓 QUANTUM DECRYPT BOSHLANDI...", "quantum");
             
             setTimeout(() => {
-                addLog("🔑 AES-256 shifr ochilmoqda...", "info");
-            }, 1000);
-            
-            setTimeout(() => {
-                addLog("🔐 RSA kalitlar yuklanmoqda...", "info");
-            }, 2000);
-            
-            setTimeout(() => {
-                addLog("📁 Fayllar qayta tiklanmoqda...", "info");
-            }, 3000);
-            
-            setTimeout(() => {
-                addLog("✅ BARCHA FAYLLAR SHIFRDAN CHIQARILDI!", "success");
-                addLog("🎯 256 fayl muvaffaqiyatli decrypt qilindi", "success");
+                addQuantumLog("🌌 Quantum kalitlar yuklanmoqda...", "info");
+                addQuantumLog("🔐 AES-1024 shifri ochilmoqda...", "info");
+                addQuantumLog("🤖 AI fayllarni tahlil qilmoqda...", "info");
+                addQuantumLog("✅ 1024 FAYL MUVAFFAQIYATLI DECRYPT QILINDI!", "success");
             }, 4000);
         }
 
-        function backupSystem() {
-            addLog("💾 TIZIM BACKUP'I BOSHLANDI...", "warning");
-            
-            const backupProcesses = [
-                "System Files Backup",
-                "Registry Backup", 
-                "User Data Backup",
-                "Application Settings",
-                "Security Certificates"
-            ];
-            
-            backupProcesses.forEach((process, index) => {
-                setTimeout(() => {
-                    addLog(`📦 ${process} saqlanmoqda...`, "info");
-                    
-                    if (index === backupProcesses.length - 1) {
-                        setTimeout(() => {
-                            addLog("✅ TIZIM BACKUP'I MUVAFFAQIYATLI YAKUNLANDI!", "success");
-                            addLog("📍 Backup fayli: C:/Quvnoq/Backup/system_backup.qbk", "info");
-                        }, 1500);
-                    }
-                }, (index + 1) * 1800);
-            });
+        // QUANTUM MONITORING SYSTEM
+        function startQuantumMonitoring() {
+            setInterval(() => {
+                const qCpu = 15 + Math.floor(Math.random() * 40);
+                const qRam = 25 + Math.floor(Math.random() * 45);
+                const qNetwork = (Math.random() * 100).toFixed(2);
+                const qPower = 80 + Math.floor(Math.random() * 20);
+                
+                document.getElementById('qCpu').textContent = qCpu + '%';
+                document.getElementById('qRam').textContent = qRam + '%';
+                document.getElementById('qNetwork').textContent = qNetwork + ' Gbps';
+                document.getElementById('qPower').textContent = qPower + '%';
+                
+                document.getElementById('qCpuGauge').style.width = qCpu + '%';
+                document.getElementById('qRamGauge').style.width = qRam + '%';
+                document.getElementById('qNetworkGauge').style.width = Math.min(100, qNetwork) + '%';
+                document.getElementById('qPowerGauge').style.width = qPower + '%';
+            }, 1500);
         }
 
-        // ==================== KODLAR BOSHQARISH ====================
-        function copyCode(elementId) {
-            const text = document.getElementById(elementId).textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                addLog(`✅ Kod nusxalandi: ${text.substring(0, 10)}...`, "success");
-            });
-        }
-
-        function generateNewCode(elementId) {
-            const prefixes = {
-                'winCode': ['WIN', 'PRO', 'ULT', 'ENT', 'COR'],
-                'officeCode': ['OFF', 'PRO', 'BUS', 'ENT', 'ULT']
-            };
-            
-            const prefix = prefixes[elementId][Math.floor(Math.random() * prefixes[elementId].length)];
-            const newCode = `${prefix}-${Math.random().toString(36).substr(2, 8).toUpperCase()}-${Date.now().toString(36).toUpperCase()}`;
-            
-            document.getElementById(elementId).textContent = newCode;
-            addLog(`🔄 Yangi kod generatsiya qilindi: ${elementId}`, "success");
-        }
-
-        // ==================== BUYRUQLAR TERMINALI ====================
-        function executeCommand() {
-            const commandInput = document.getElementById('commandInput');
-            const command = commandInput.value.trim().toLowerCase();
-            
+        // QUANTUM COMMAND SYSTEM
+        function executeQuantumCommand() {
+            const command = document.getElementById('quantumCommand').value.trim().toLowerCase();
             if (!command) return;
             
-            addCommandLog(`> ${command}`, "info");
-            commandInput.value = '';
+            addQuantumLog(`> ${command}`, "info");
+            document.getElementById('quantumCommand').value = '';
             
-            const commands = {
+            const quantumCommands = {
                 'help': () => {
-                    addCommandLog("📋 MAVJUD BUYRUQLAR:", "info");
-                    addCommandLog("scan    - Tizim skanerlash", "info");
-                    addCommandLog("optimize - Tizim optimizatsiya", "info");
-                    addCommandLog("attack  - Tarmoq testi", "info");
-                    addCommandLog("decrypt - Fayllarni decrypt qilish", "info");
-                    addCommandLog("backup  - Backup yaratish", "info");
-                    addCommandLog("monitor - Monitoring ko'rsatkichlari", "info");
-                    addCommandLog("firewall - Firewall sozlamalari", "info");
-                    addCommandLog("vpn     - VPN sozlamalari", "info");
-                    addCommandLog("clear   - Ekranni tozalash", "info");
+                    addQuantumLog("📋 QUANTUM BUYRUQLARI:", "info");
+                    addQuantumLog("activate - Quantum aktivatsiya", "info");
+                    addQuantumLog("scan    - Quantum skanerlash", "info");
+                    addQuantumLog("attack  - Quantum hujum", "info");
+                    addQuantumLog("decrypt - Quantum decrypt", "info");
+                    addQuantumLog("ai      - Quantum AI", "info");
+                    addQuantumLog("stealth - Yashirin rejim", "info");
+                    addQuantumLog("override- Tizim nazorati", "info");
+                    addQuantumLog("status  - Tizim holati", "info");
                 },
-                'scan': runSecurityScan,
-                'optimize': optimizeSystem,
-                'attack': startNetworkAttack,
-                'decrypt': decryptFiles,
-                'backup': backupSystem,
-                'monitor': () => {
-                    addCommandLog("📊 MONITORING KO'RSATKICHLARI:", "info");
-                    addCommandLog(`CPU: ${document.getElementById('cpuUsage').textContent}`, "info");
-                    addCommandLog(`RAM: ${document.getElementById('ramUsage').textContent}`, "info");
-                    addCommandLog(`Network: ${document.getElementById('networkStatus').textContent}`, "info");
-                },
-                'firewall': () => {
-                    addCommandLog("🛡️ FIREWall SOZLAMALARI:", "info");
-                    addCommandLog("Status: FAOL", "success");
-                    addCommandLog("Portlar: 80, 443, 22, 3389", "info");
-                    addCommandLog("Qoidalar: 156 ta faol", "info");
-                },
-                'vpn': () => {
-                    addCommandLog("🔒 VPN SOZLAMALARI:", "info");
-                    addCommandLog("Status: O'CHIRILGAN", "warning");
-                    addCommandLog("Server: quantum.quvnoq.uz", "info");
-                    addCommandLog("Protocol: WireGuard", "info");
-                },
-                'clear': () => {
-                    document.getElementById('commandLog').innerHTML = '';
-                    addCommandLog("🗑️ Terminal tozalandi", "success");
+                'activate': quantumAutoActivate,
+                'scan': quantumSecurityScan,
+                'attack': quantumNetworkAttack,
+                'decrypt': quantumDecrypt,
+                'ai': () => addQuantumLog("🤖 QUANTUM AI AKTIVLASHTIRILDI", "cyber"),
+                'stealth': () => addQuantumLog("👻 YASHIRIN REJIM FAQLLASHTIRILDI", "success"),
+                'override': () => addQuantumLog("🎯 TIZIM NAZORATI FAQLLASHTIRILDI", "warning"),
+                'status': () => {
+                    addQuantumLog("📊 QUANTUM TIZIM HOLATI:", "info");
+                    addQuantumLog(`CPU: ${document.getElementById('qCpu').textContent}`, "info");
+                    addQuantumLog(`RAM: ${document.getElementById('qRam').textContent}`, "info");
+                    addQuantumLog(`Network: ${document.getElementById('qNetwork').textContent}`, "info");
+                    addQuantumLog(`Power: ${document.getElementById('qPower').textContent}`, "info");
                 }
             };
             
-            if (commands[command]) {
-                commands[command]();
+            if (quantumCommands[command]) {
+                quantumCommands[command]();
             } else {
-                addCommandLog(`❌ Noma'lum buyruq: ${command}`, "error");
-                addCommandLog("ℹ️ 'help' buyrug'i bilan mavjud buyruqlarni ko'ring", "info");
+                addQuantumLog(`❌ Noma'lum quantum buyruq: ${command}`, "error");
             }
         }
 
-        // ==================== FAVQULODDA VAZIIYATLAR ====================
-        function emergencyLockdown() {
-            addLog("🚨 FAVQULODDA QULF REJIMI FAOLLASHTIRILDI!", "error");
-            addLog("🔴 BARCHA TIZIM FUNKSIYALARI TO'XTATILMOQDA...", "error");
-            
-            clearInterval(systemMonitorInterval);
-            clearInterval(networkMonitorInterval);
-            
-            setTimeout(() => {
-                addLog("⚫ BARCHA ULANDLAR UZILDI", "error");
-                addLog("🔒 TIZIM BUTUNLAY QULFLANDI", "error");
-                
-                document.body.innerHTML = `
-                    <div style="
-                        background: #000;
-                        color: #ff0033;
-                        height: 100vh;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        flex-direction: column;
-                        font-family: 'Courier New', monospace;
-                        text-align: center;
-                    ">
-                        <div style="font-size: 48px; margin-bottom: 20px; text-shadow: 0 0 20px #ff0033;">🚨 SYSTEM LOCKDOWN 🚨</div>
-                        <div style="font-size: 18px; margin-bottom: 30px; color: #00ff41;">
-                            QUVNOQ-CYBER TIZIMI FAVQULODDA QULFLANDI
-                        </div>
-                        <div style="margin-bottom: 20px; color: #ffff00;">
-                            Xavfsizlik tahdidi aniqlandi<br>
-                            Barcha tizim funksiyalari to'xtatildi
-                        </div>
-                        <button onclick="location.reload()" style="
-                            background: #ff0033;
-                            color: white;
-                            border: none;
-                            padding: 15px 30px;
-                            border-radius: 8px;
-                            cursor: pointer;
-                            font-size: 16px;
-                            font-weight: bold;
-                        ">🔄 TIZIMNI QAYTA YUKLASH</button>
-                    </div>
-                `;
-            }, 3000);
-        }
-
-        function clearLogs() {
-            document.getElementById('outputLog').innerHTML = '';
-            document.getElementById('commandLog').innerHTML = '';
-            addLog("🗑️ Barcha loglar tozalandi", "success");
-        }
-
-        function logout() {
-            addLog("🚪 TIZIMDAN CHIQILMOQDA...", "warning");
-            
-            clearInterval(systemMonitorInterval);
-            clearInterval(networkMonitorInterval);
-            
-            setTimeout(() => {
-                elements.mainContent.classList.add('hidden');
-                elements.loginSection.classList.remove('hidden');
-                attempts = 0;
-                updateAttemptCounter();
-                elements.statusIndicator.style.background = "#ff0033";
-                elements.statusIndicator.style.animation = "statusPulse 2s infinite";
-                elements.accessBadge.style.background = "linear-gradient(45deg, #ff0033, #cc0022)";
-                
-                addLog("✅ TIZIMDAN MUVAFFAQIYATLI CHIQILDI", "success");
-                addLog("🔐 Qayta kirish uchun access kodi talab qilinadi", "warning");
-            }, 2000);
-        }
-
-        // ==================== YORDAMCHI FUNKSIYALAR ====================
-        function addLog(message, type = "info") {
+        function addQuantumLog(message, type = "info") {
+            const log = document.getElementById('quantumLog');
             const logEntry = document.createElement('div');
-            logEntry.className = `log-entry ${type}`;
+            logEntry.className = 'log-entry';
+            logEntry.style.color = getColorForType(type);
+            logEntry.style.borderLeftColor = getColorForType(type);
             logEntry.textContent = message;
-            elements.outputLog.appendChild(logEntry);
-            elements.outputLog.scrollTop = elements.outputLog.scrollHeight;
+            log.appendChild(logEntry);
+            log.scrollTop = log.scrollHeight;
         }
 
-        function addCommandLog(message, type = "info") {
-            const logEntry = document.createElement('div');
-            logEntry.className = `log-entry ${type}`;
-            logEntry.textContent = message;
-            elements.commandLog.appendChild(logEntry);
-            elements.commandLog.scrollTop = elements.commandLog.scrollHeight;
+        function getColorForType(type) {
+            const colors = {
+                'quantum': '#ff00ff',
+                'success': '#00ff41', 
+                'error': '#ff0033',
+                'warning': '#ffff00',
+                'info': '#00ccff',
+                'cyber': '#ff00ff'
+            };
+            return colors[type] || '#00ff41';
         }
 
-        // ==================== KEYBOARD SHORTCUTS ====================
-        document.addEventListener('keydown', function(e) {
-            // Ctrl + L - Clear logs
-            if (e.ctrlKey && e.key === 'l') {
-                e.preventDefault();
-                clearLogs();
-            }
-            
-            // Ctrl + Q - Logout
-            if (e.ctrlKey && e.key === 'q') {
-                e.preventDefault();
-                logout();
-            }
-            
-            // Ctrl + D - Emergency lockdown
-            if (e.ctrlKey && e.key === 'd') {
-                e.preventDefault();
-                if (confirm("Favqulodda qulf rejimini faollashtirishni xohlaysizmi?")) {
-                    emergencyLockdown();
-                }
-            }
-            
-            // Escape - Clear command input
-            if (e.key === 'Escape') {
-                document.getElementById('commandInput').value = '';
-            }
+        // INITIALIZE QUANTUM SYSTEM
+        document.addEventListener('DOMContentLoaded', function() {
+            addQuantumLog("🌌 QUANTUM ULTIMATE TIZIMI ISHGA TUSHDI", "quantum");
+            addQuantumLog("🚀 Barcha darajalar birlashtirildi: ALPHA + BETA + GAMMA + OMEGA + QUANTUM", "success");
+            startQuantumMonitoring();
         });
 
-        // ==================== AUTO-SAVE SYSTEM ====================
-        function autoSaveSystem() {
-            const systemState = {
-                timestamp: new Date().toLocaleString(),
-                windowsCode: document.getElementById('winCode').textContent,
-                officeCode: document.getElementById('officeCode').textContent,
-                lastActivity: "System Active"
+        // QUANTUM COPY FUNCTION
+        function quantumCopy(type) {
+            const codes = {
+                'win': 'QUANTUM-W1N-ULTRA-2024-M4ST3R',
+                'office': 'QUANTUM-0FF1C3-PR0-ULTRA-X'
             };
-            
-            localStorage.setItem('quvnoqSystemState', JSON.stringify(systemState));
-        }
-
-        setInterval(autoSaveSystem, 30000);
-
-        const savedState = localStorage.getItem('quvnoqSystemState');
-        if (savedState) {
-            const state = JSON.parse(savedState);
-            addLog(`💾 Oxirgi saqlangan holat: ${state.timestamp}`, "info");
+            navigator.clipboard.writeText(codes[type]).then(() => {
+                addQuantumLog(`✅ ${type.toUpperCase()} kodi nusxalandi!`, "success");
+            });
         }
     </script>
 </body>

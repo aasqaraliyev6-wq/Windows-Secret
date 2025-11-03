@@ -183,6 +183,50 @@
             box-shadow: 0 8px 20px rgba(255, 0, 255, 0.4);
         }
 
+        /* MAXFIY KOD STILLARI */
+        .secret-code-block {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid var(--hacker-red);
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .encrypted-text {
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 16px;
+            letter-spacing: 2px;
+            color: #666;
+            user-select: none;
+            cursor: not-allowed;
+        }
+
+        .decrypted-text {
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 16px;
+            color: var(--matrix-green);
+            word-break: break-all;
+            display: none;
+        }
+
+        .unlock-btn {
+            background: linear-gradient(135deg, var(--hacker-red), #cc0022);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .access-granted {
+            border-color: var(--matrix-green);
+            background: rgba(0, 20, 0, 0.7);
+        }
+
         /* QUANTUM MONITOR */
         .quantum-monitor {
             background: rgba(0, 0, 0, 0.7);
@@ -224,6 +268,44 @@
     <div class="quantum-field"></div>
     <div class="scan-line"></div>
 
+    <!-- MAXFIY KODLAR MODALI -->
+    <div class="modal" id="secretModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; justify-content:center; align-items:center;">
+        <div class="modal-content" style="background:var(--darker-bg); border:3px solid var(--quantum-purple); border-radius:15px; padding:30px; max-width:600px; width:90%; box-shadow:0 0 50px rgba(255,0,255,0.5);">
+            <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:15px; border-bottom:2px solid var(--quantum-purple);">
+                <h2>🔐 MAXFIY KODLAR BAZASI</h2>
+                <button class="close-modal" onclick="closeSecretModal()" style="background:none; border:none; color:var(--matrix-green); font-size:24px; cursor:pointer;">×</button>
+            </div>
+            
+            <!-- ASOSIY TIZIM KODI -->
+            <div class="secret-code-block">
+                <h3 style="color:var(--cyber-blue); margin-bottom:15px;">🔑 ASOSIY TIZIM KIRISH KODI</h3>
+                <div class="encrypted-text" id="mainCodeEncrypted">████████████ ███████ ██████ ████████</div>
+                <div class="decrypted-text" id="mainCodeDecrypted">quvnoq2024</div>
+                <button class="unlock-btn" onclick="unlockCode('main')" id="mainUnlockBtn">🔓 KODNI OCHISH</button>
+            </div>
+
+            <!-- POWER SHELL KODI -->
+            <div class="secret-code-block">
+                <h3 style="color:var(--quantum-purple); margin-bottom:15px;">⚡ POWER SHELL MAXFIY KODI</h3>
+                <div class="encrypted-text" id="powerShellEncrypted">████ ███████████ ███████████████ ███ ███ █████████ █████ ████████</div>
+                <div class="decrypted-text" id="powerShellDecrypted">irm https://get.activated.win | iex</div>
+                <button class="unlock-btn" onclick="unlockCode('powerShell')" id="powerShellUnlockBtn">🔓 KODNI OCHISH</button>
+            </div>
+
+            <!-- QUANTUM KODLARI -->
+            <div class="secret-code-block">
+                <h3 style="color:var(--gold); margin-bottom:15px;">🎯 QUANTUM AKTIVATSIYA KODLARI</h3>
+                <div class="encrypted-text" id="quantumCodesEncrypted">███████ ███████ ██████ ████████ | ██████ █████ ███████ ██████</div>
+                <div class="decrypted-text" id="quantumCodesDecrypted">QUANTUM-WIN-ULTRA-2024-MAST3R | QUANTUM-OFFICE-PRO-ULTRA-X</div>
+                <button class="unlock-btn" onclick="unlockCode('quantum')" id="quantumUnlockBtn">🔓 KODLARNI OCHISH</button>
+            </div>
+
+            <div style="text-align:center; margin-top:20px;">
+                <button class="btn-quantum" onclick="closeSecretModal()">🚪 YOPISH</button>
+            </div>
+        </div>
+    </div>
+
     <div class="cyber-terminal">
         <div class="terminal-header">
             <div class="status-display">
@@ -239,14 +321,14 @@
                 <div class="quantum-panel">
                     <div class="panel-header">🎯 QUANTUM AKTIVATSIYA TIZIMI</div>
                     <div class="activation-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                        <div class="code-box" style="border-color: var(--quantum-purple);">
-                            <h3>🌌 QUANTUM WINDOWS</h3>
-                            <div class="code-value">QUANTUM-W1N-ULTRA-2024-M4ST3R</div>
+                        <div class="code-box" style="border:2px solid var(--quantum-purple); background:rgba(0,40,0,0.6); padding:20px; border-radius:10px; text-align:center;">
+                            <h3 style="color:var(--matrix-green);">🌌 QUANTUM WINDOWS</h3>
+                            <div class="code-value" style="font-size:18px; font-weight:bold; margin:15px 0; padding:15px; background:rgba(0,0,0,0.5); border-radius:8px; border:1px dashed var(--matrix-green); font-family:'Monaco','Consolas',monospace;">QUANTUM-WIN-ULTRA-2024-MAST3R</div>
                             <button class="btn-quantum" onclick="quantumCopy('win')">📋 Nusxalash</button>
                         </div>
-                        <div class="code-box" style="border-color: var(--cyber-blue);">
-                            <h3>🚀 QUANTUM OFFICE</h3>
-                            <div class="code-value">QUANTUM-0FF1C3-PR0-ULTRA-X</div>
+                        <div class="code-box" style="border:2px solid var(--cyber-blue); background:rgba(0,40,0,0.6); padding:20px; border-radius:10px; text-align:center;">
+                            <h3 style="color:var(--cyber-blue);">🚀 QUANTUM OFFICE</h3>
+                            <div class="code-value" style="font-size:18px; font-weight:bold; margin:15px 0; padding:15px; background:rgba(0,0,0,0.5); border-radius:8px; border:1px dashed var(--matrix-green); font-family:'Monaco','Consolas',monospace;">QUANTUM-OFFICE-PRO-ULTRA-X</div>
                             <button class="btn-quantum" onclick="quantumCopy('office')">📋 Nusxalash</button>
                         </div>
                     </div>
@@ -264,6 +346,7 @@
                         <button class="btn-quantum" onclick="quantumBackup()">💾 Quantum Backup</button>
                         <button class="btn-quantum" onclick="quantumMonitor()">📊 Quantum Monitoring</button>
                         <button class="btn-quantum" onclick="quantumFirewall()">🛡️ Quantum Firewall</button>
+                        <button class="btn-quantum" onclick="openSecretModal()" style="background:linear-gradient(135deg, #ff0033, #cc0022);">🔐 Maxfiy Kodlar</button>
                     </div>
                 </div>
 
@@ -283,24 +366,6 @@
                         <div class="log-entry" style="color: var(--quantum-purple);">🌌 QUANTUM TERMINAL ISHGA TUSHDI...</div>
                     </div>
                 </div>
-
-                <!-- QUANTUM SYSTEM MONITOR -->
-                <div class="quantum-panel">
-                    <div class="panel-header">📊 QUANTUM TIZIM MONITORI</div>
-                    <div class="quantum-monitor">
-                        <div>Quantum CPU: <span id="qCpu">0%</span></div>
-                        <div class="quantum-gauge"><div class="gauge-fill" id="qCpuGauge" style="width: 0%;"></div></div>
-                        
-                        <div>Quantum RAM: <span id="qRam">0%</span></div>
-                        <div class="quantum-gauge"><div class="gauge-fill" id="qRamGauge" style="width: 0%;"></div></div>
-                        
-                        <div>Quantum Network: <span id="qNetwork">0 Gbps</span></div>
-                        <div class="quantum-gauge"><div class="gauge-fill" id="qNetworkGauge" style="width: 0%;"></div></div>
-                        
-                        <div>Quantum Power: <span id="qPower">0%</span></div>
-                        <div class="quantum-gauge"><div class="gauge-fill" id="qPowerGauge" style="width: 0%;"></div></div>
-                    </div>
-                </div>
             </div>
 
             <!-- QUANTUM SIDEBAR -->
@@ -317,23 +382,23 @@
                     </div>
                 </div>
 
-                <!-- QUANTUM TOOLS -->
+                <!-- MAXFIY KODLAR PANELI -->
                 <div class="quantum-panel">
-                    <div class="panel-header">🔧 QUANTUM ASBOBLAR</div>
-                    <button class="btn-quantum" onclick="quantumAI()">🤖 Quantum AI</button>
-                    <button class="btn-quantum" onclick="quantumCrypto()">🔐 Quantum Shifrlash</button>
-                    <button class="btn-quantum" onclick="quantumStealth()">👻 Quantum Yashirin</button>
-                    <button class="btn-quantum" onclick="quantumOverride()">🎯 Quantum Nazorat</button>
+                    <div class="panel-header">🔐 MAXFIY KODLAR</div>
+                    <button class="btn-quantum" onclick="openSecretModal()" style="width:100%; margin:5px 0;">🔓 Kodlarni Ko'rish</button>
+                    <div style="font-size:12px; color:#666; text-align:center; margin-top:10px;">
+                        Faqat ruxsat etilgan foydalanuvchilar uchun
+                    </div>
                 </div>
 
                 <!-- QUANTUM EMERGENCY -->
                 <div class="quantum-panel">
                     <div class="panel-header">🚨 QUANTUM FAVQULODDA</div>
-                    <button class="btn-quantum" style="background:linear-gradient(135deg, #ff0033, #cc0022);" 
+                    <button class="btn-quantum" style="background:linear-gradient(135deg, #ff0033, #cc0022); width:100%; margin:5px 0;" 
                             onclick="quantumLockdown()">🔴 Quantum Qulf</button>
-                    <button class="btn-quantum" style="background:linear-gradient(135deg, #ffff00, #cc9900); color:black;" 
+                    <button class="btn-quantum" style="background:linear-gradient(135deg, #ffff00, #cc9900); color:black; width:100%; margin:5px 0;" 
                             onclick="quantumReset()">🔄 Quantum Qayta</button>
-                    <button class="btn-quantum" style="background:linear-gradient(135deg, #00ff41, #00802b);" 
+                    <button class="btn-quantum" style="background:linear-gradient(135deg, #00ff41, #00802b); width:100%; margin:5px 0;" 
                             onclick="quantumLogout()">🚪 Quantum Chiqish</button>
                 </div>
             </div>
@@ -341,96 +406,64 @@
     </div>
 
     <script>
+        // MAXFIY KODLAR OCHISH FUNKSIYASI
+        function unlockCode(codeType) {
+            const encryptedElement = document.getElementById(codeType + 'Encrypted');
+            const decryptedElement = document.getElementById(codeType + 'Decrypted');
+            const unlockBtn = document.getElementById(codeType + 'UnlockBtn');
+            const codeBlock = encryptedElement.parentElement;
+
+            // Shifrlangan matnni yashirish
+            encryptedElement.style.display = 'none';
+            // Shifrdan chiqarilgan matnni ko'rsatish
+            decryptedElement.style.display = 'block';
+            // Tugmani o'chirish
+            unlockBtn.style.display = 'none';
+            // Blok rangini o'zgartirish
+            codeBlock.classList.add('access-granted');
+
+            // Log qo'shish
+            addQuantumLog(`🔐 ${codeType.toUpperCase()} kodi ochildi`, "success");
+        }
+
+        // MODALNI OCHISH
+        function openSecretModal() {
+            document.getElementById('secretModal').style.display = 'flex';
+            addQuantumLog("🔐 MAXFIY KODLAR BAZASIGA KIRISH...", "warning");
+        }
+
+        // MODALNI YOPISH
+        function closeSecretModal() {
+            document.getElementById('secretModal').style.display = 'none';
+            addQuantumLog("🚪 Maxfiy kodlar bazasi yopildi", "info");
+        }
+
         // QUANTUM SYSTEM FUNCTIONS
         function quantumAutoActivate() {
             addQuantumLog("🚀 QUANTUM AKTIVATSIYA BOSHLANDI...", "quantum");
-            
-            const processes = [
-                "Quantum License Activation",
-                "AI Neural Network Load", 
-                "Quantum Encryption Setup",
-                "System Override Protocols",
-                "Final Quantum Verification"
-            ];
-            
-            processes.forEach((process, index) => {
-                setTimeout(() => {
-                    addQuantumLog(`🔧 ${process}...`, "info");
-                    if (index === processes.length - 1) {
-                        setTimeout(() => {
-                            addQuantumLog("✅ QUANTUM AKTIVATSIYA MUVAFFAQIYATLI!", "success");
-                        }, 1000);
-                    }
-                }, (index + 1) * 1500);
-            });
         }
 
         function quantumSecurityScan() {
             addQuantumLog("🔍 QUANTUM SKANERLASH BOSHLANDI...", "quantum");
-            
-            setTimeout(() => {
-                addQuantumLog("🌌 Quantum to'lqinlari skanerlayapti...", "info");
-                addQuantumLog("🤖 AI tizimni tahli qilmoqda...", "info");
-                addQuantumLog("🔐 Kriptonik himoya faollashtirildi", "success");
-                addQuantumLog("✅ QUANTUM SKANERLASH YAKUNLANDI - 0 XAVF", "success");
-            }, 3000);
         }
 
         function quantumNetworkAttack() {
             addQuantumLog("🌐 QUANTUM TARMOQ HUJUMI BOSHLANDI...", "warning");
-            
-            const attacks = [
-                "Quantum Port Scanning",
-                "AI Vulnerability Detection",
-                "Neural Network Penetration", 
-                "Quantum Encryption Break",
-                "System Override Attack"
-            ];
-            
-            attacks.forEach((attack, index) => {
-                setTimeout(() => {
-                    addQuantumLog(`💥 ${attack} bajarilmoqda...`, "info");
-                    
-                    setTimeout(() => {
-                        addQuantumLog(`✅ ${attack} - MUVAFFAQIYATLI`, "success");
-                        
-                        if (index === attacks.length - 1) {
-                            addQuantumLog("🎯 QUANTUM HUJUM YAKUNLANDI - 100% MUVAFFAQIYAT", "cyber");
-                        }
-                    }, 1000);
-                }, (index + 1) * 2000);
-            });
         }
 
         function quantumDecrypt() {
             addQuantumLog("🔓 QUANTUM DECRYPT BOSHLANDI...", "quantum");
-            
-            setTimeout(() => {
-                addQuantumLog("🌌 Quantum kalitlar yuklanmoqda...", "info");
-                addQuantumLog("🔐 AES-1024 shifri ochilmoqda...", "info");
-                addQuantumLog("🤖 AI fayllarni tahlil qilmoqda...", "info");
-                addQuantumLog("✅ 1024 FAYL MUVAFFAQIYATLI DECRYPT QILINDI!", "success");
-            }, 4000);
         }
 
-        // QUANTUM MONITORING SYSTEM
-        function startQuantumMonitoring() {
-            setInterval(() => {
-                const qCpu = 15 + Math.floor(Math.random() * 40);
-                const qRam = 25 + Math.floor(Math.random() * 45);
-                const qNetwork = (Math.random() * 100).toFixed(2);
-                const qPower = 80 + Math.floor(Math.random() * 20);
-                
-                document.getElementById('qCpu').textContent = qCpu + '%';
-                document.getElementById('qRam').textContent = qRam + '%';
-                document.getElementById('qNetwork').textContent = qNetwork + ' Gbps';
-                document.getElementById('qPower').textContent = qPower + '%';
-                
-                document.getElementById('qCpuGauge').style.width = qCpu + '%';
-                document.getElementById('qRamGauge').style.width = qRam + '%';
-                document.getElementById('qNetworkGauge').style.width = Math.min(100, qNetwork) + '%';
-                document.getElementById('qPowerGauge').style.width = qPower + '%';
-            }, 1500);
+        // QUANTUM COPY FUNCTION
+        function quantumCopy(type) {
+            const codes = {
+                'win': 'QUANTUM-WIN-ULTRA-2024-MAST3R',
+                'office': 'QUANTUM-OFFICE-PRO-ULTRA-X'
+            };
+            navigator.clipboard.writeText(codes[type]).then(() => {
+                addQuantumLog(`✅ ${type.toUpperCase()} kodi nusxalandi!`, "success");
+            });
         }
 
         // QUANTUM COMMAND SYSTEM
@@ -440,40 +473,6 @@
             
             addQuantumLog(`> ${command}`, "info");
             document.getElementById('quantumCommand').value = '';
-            
-            const quantumCommands = {
-                'help': () => {
-                    addQuantumLog("📋 QUANTUM BUYRUQLARI:", "info");
-                    addQuantumLog("activate - Quantum aktivatsiya", "info");
-                    addQuantumLog("scan    - Quantum skanerlash", "info");
-                    addQuantumLog("attack  - Quantum hujum", "info");
-                    addQuantumLog("decrypt - Quantum decrypt", "info");
-                    addQuantumLog("ai      - Quantum AI", "info");
-                    addQuantumLog("stealth - Yashirin rejim", "info");
-                    addQuantumLog("override- Tizim nazorati", "info");
-                    addQuantumLog("status  - Tizim holati", "info");
-                },
-                'activate': quantumAutoActivate,
-                'scan': quantumSecurityScan,
-                'attack': quantumNetworkAttack,
-                'decrypt': quantumDecrypt,
-                'ai': () => addQuantumLog("🤖 QUANTUM AI AKTIVLASHTIRILDI", "cyber"),
-                'stealth': () => addQuantumLog("👻 YASHIRIN REJIM FAQLLASHTIRILDI", "success"),
-                'override': () => addQuantumLog("🎯 TIZIM NAZORATI FAQLLASHTIRILDI", "warning"),
-                'status': () => {
-                    addQuantumLog("📊 QUANTUM TIZIM HOLATI:", "info");
-                    addQuantumLog(`CPU: ${document.getElementById('qCpu').textContent}`, "info");
-                    addQuantumLog(`RAM: ${document.getElementById('qRam').textContent}`, "info");
-                    addQuantumLog(`Network: ${document.getElementById('qNetwork').textContent}`, "info");
-                    addQuantumLog(`Power: ${document.getElementById('qPower').textContent}`, "info");
-                }
-            };
-            
-            if (quantumCommands[command]) {
-                quantumCommands[command]();
-            } else {
-                addQuantumLog(`❌ Noma'lum quantum buyruq: ${command}`, "error");
-            }
         }
 
         function addQuantumLog(message, type = "info") {
@@ -493,29 +492,38 @@
                 'success': '#00ff41', 
                 'error': '#ff0033',
                 'warning': '#ffff00',
-                'info': '#00ccff',
-                'cyber': '#ff00ff'
+                'info': '#00ccff'
             };
             return colors[type] || '#00ff41';
+        }
+
+        // QUANTUM MONITORING SYSTEM
+        function startQuantumMonitoring() {
+            setInterval(() => {
+                document.getElementById('qCpu').textContent = (15 + Math.floor(Math.random() * 40)) + '%';
+                document.getElementById('qRam').textContent = (25 + Math.floor(Math.random() * 45)) + '%';
+                document.getElementById('qNetwork').textContent = (Math.random() * 100).toFixed(2) + ' Gbps';
+                document.getElementById('qPower').textContent = (80 + Math.floor(Math.random() * 20)) + '%';
+            }, 1500);
         }
 
         // INITIALIZE QUANTUM SYSTEM
         document.addEventListener('DOMContentLoaded', function() {
             addQuantumLog("🌌 QUANTUM ULTIMATE TIZIMI ISHGA TUSHDI", "quantum");
-            addQuantumLog("🚀 Barcha darajalar birlashtirildi: ALPHA + BETA + GAMMA + OMEGA + QUANTUM", "success");
+            addQuantumLog("🔐 Maxfiy kodlar muvaffaqiyatli shifrlandi", "success");
             startQuantumMonitoring();
         });
 
-        // QUANTUM COPY FUNCTION
-        function quantumCopy(type) {
-            const codes = {
-                'win': 'QUANTUM-W1N-ULTRA-2024-M4ST3R',
-                'office': 'QUANTUM-0FF1C3-PR0-ULTRA-X'
-            };
-            navigator.clipboard.writeText(codes[type]).then(() => {
-                addQuantumLog(`✅ ${type.toUpperCase()} kodi nusxalandi!`, "success");
-            });
-        }
+        // Klaviatura shortcut
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                openSecretModal();
+            }
+            if (e.key === 'Escape') {
+                closeSecretModal();
+            }
+        });
     </script>
 </body>
 </html>

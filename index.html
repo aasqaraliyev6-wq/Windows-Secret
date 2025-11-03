@@ -1,147 +1,507 @@
 <!DOCTYPE html>
-<html>
+<html lang="uz">
 <head>
-    <title>System Security Portal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 QUVNOQ SECURITY PORTAL</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Courier New', monospace;
+            font-family: 'Courier New', 'Consolas', monospace;
         }
-        
+
+        :root {
+            --matrix-green: #00ff41;
+            --cyber-blue: #00ccff;
+            --hacker-red: #ff0033;
+            --warning-yellow: #ffff00;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --terminal-bg: #001100;
+        }
+
         body {
-            background: #0a0a0a;
-            color: #00ff00;
+            background: var(--dark-bg);
+            color: var(--matrix-green);
             overflow: hidden;
+            height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 65, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 204, 255, 0.05) 0%, transparent 50%);
         }
-        
-        .matrix-bg {
+
+        .cyber-grid {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            opacity: 0.3;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            animation: gridMove 20s linear infinite;
         }
-        
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .scan-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--matrix-green), transparent);
+            box-shadow: 0 0 10px var(--matrix-green);
+            z-index: -1;
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { top: 100%; opacity: 0.8; }
+        }
+
         .login-container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-        }
-        
-        .terminal {
-            background: #000;
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            width: 600px;
             padding: 20px;
-            box-shadow: 0 0 20px #00ff00;
         }
-        
+
+        .cyber-terminal {
+            background: var(--darker-bg);
+            border: 3px solid var(--matrix-green);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 700px;
+            padding: 0;
+            box-shadow: 
+                0 0 30px rgba(0, 255, 65, 0.3),
+                inset 0 0 30px rgba(0, 255, 65, 0.1);
+            overflow: hidden;
+        }
+
         .terminal-header {
-            background: #00ff00;
+            background: linear-gradient(135deg, var(--matrix-green), #00802b);
             color: #000;
-            padding: 10px;
+            padding: 20px;
             text-align: center;
             font-weight: bold;
-            margin: -20px -20px 20px -20px;
-            border-radius: 8px 8px 0 0;
+            font-size: 18px;
+            border-bottom: 3px solid var(--matrix-green);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        
-        .input-line {
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--hacker-red);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .terminal-body {
+            padding: 30px;
+        }
+
+        .output-log {
+            background: rgba(0, 20, 0, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            margin-bottom: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+
+        .log-entry {
+            margin: 8px 0;
+            padding: 5px;
+            border-left: 3px solid var(--matrix-green);
+            padding-left: 10px;
+            animation: logEntry 0.5s ease-out;
+        }
+
+        @keyframes logEntry {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .success { color: #00ff41; border-color: #00ff41; }
+        .error { color: #ff0033; border-color: #ff0033; }
+        .warning { color: #ffff00; border-color: #ffff00; }
+        .info { color: #00ccff; border-color: #00ccff; }
+
+        .input-group {
             display: flex;
             align-items: center;
-            margin: 10px 0;
+            background: rgba(0, 20, 0, 0.6);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            margin: 20px 0;
         }
-        
+
         .prompt {
-            color: #00ff00;
+            color: var(--matrix-green);
             margin-right: 10px;
+            font-weight: bold;
+            white-space: nowrap;
         }
-        
+
         input {
             background: transparent;
             border: none;
-            color: #00ff00;
+            color: var(--matrix-green);
             outline: none;
             flex: 1;
             font-size: 16px;
+            padding: 5px;
         }
-        
-        .output {
-            margin: 10px 0;
-            min-height: 20px;
+
+        .attempt-counter {
+            background: rgba(255, 0, 51, 0.2);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            border: 1px solid var(--hacker-red);
+            margin-left: 10px;
         }
-        
-        .hidden-section {
-            display: none;
+
+        .hidden {
+            display: none !important;
         }
-        
-        .content-area {
+
+        /* MAIN CONTENT STYLES */
+        .main-content {
+            background: rgba(0, 30, 0, 0.8);
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid var(--matrix-green);
             margin-top: 20px;
+        }
+
+        .control-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: rgba(0, 40, 0, 0.6);
             padding: 20px;
-            background: #111;
-            border: 1px solid #00ff00;
+            border-radius: 8px;
+            border: 1px solid var(--matrix-green);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.3);
+            border-color: var(--cyber-blue);
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .activation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .code-box {
+            background: rgba(0, 40, 0, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid var(--matrix-green);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            animation: codeGlow 3s infinite;
+        }
+
+        @keyframes codeGlow {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .code-value {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.5);
             border-radius: 5px;
+            border: 1px dashed var(--matrix-green);
+            font-family: 'Monaco', 'Consolas', monospace;
+            word-break: break-all;
         }
-        
-        .code-display {
-            background: #001100;
-            padding: 15px;
+
+        .btn {
+            background: linear-gradient(135deg, var(--matrix-green), #00802b);
+            color: black;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--hacker-red), #cc0022);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning-yellow), #cc9900);
+            color: black;
+        }
+
+        .btn-cyber {
+            background: linear-gradient(135deg, var(--cyber-blue), #0066cc);
+        }
+
+        .system-monitor {
+            background: rgba(0, 20, 0, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            margin: 20px 0;
+        }
+
+        .gauge {
+            width: 100%;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
             margin: 10px 0;
-            border-left: 3px solid #00ff00;
+            overflow: hidden;
         }
-        
-        .blink {
-            animation: blink 1s infinite;
+
+        .gauge-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease;
+            position: relative;
         }
-        
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
+
+        .gauge-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: gaugeShine 2s infinite;
+        }
+
+        @keyframes gaugeShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .activation-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .control-panel {
+                grid-template-columns: 1fr;
+            }
+            
+            .terminal-body {
+                padding: 20px;
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="matrix-bg" id="matrixBg"></div>
-    
+    <div class="cyber-grid"></div>
+    <div class="scan-line"></div>
+
     <div class="login-container">
-        <div class="terminal">
+        <div class="cyber-terminal">
             <div class="terminal-header">
-                🔒 SECURE SYSTEM ACCESS 🔒
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span>🔐 QUVNOQ SECURITY PORTAL</span>
+                <div class="attempt-counter" id="attemptCounter">Urinishlar: 0/3</div>
             </div>
-            
-            <div id="loginSection">
-                <div class="output" id="output"></div>
-                <div class="input-line">
-                    <span class="prompt">root@system:~# access_code</span>
-                    <input type="password" id="passwordInput" autocomplete="off" autofocus>
+
+            <div class="terminal-body">
+                <!-- LOGIN SECTION -->
+                <div id="loginSection">
+                    <div class="output-log" id="outputLog">
+                        <div class="log-entry info">🛡️ QUVNOQ Security System Loading...</div>
+                        <div class="log-entry info">🔍 BIOS & UEFI Verification...</div>
+                        <div class="log-entry success">✅ Quantum Encryption Activated</div>
+                        <div class="log-entry success">✅ Firewall Protocols Online</div>
+                        <div class="log-entry warning">⚠️ Authentication Required - Access Code Needed</div>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="prompt">root@quvnoq:~# access_code</span>
+                        <input type="password" id="passwordInput" placeholder="Enter access code..." autocomplete="off" autofocus>
+                    </div>
+
+                    <div class="system-monitor">
+                        <h3>📊 SYSTEM STATUS</h3>
+                        <div>Firewall: <span style="color:#00ff41">ACTIVE</span></div>
+                        <div>Encryption: <span style="color:#00ff41">AES-256</span></div>
+                        <div>VPN: <span style="color:#ff0033">DISABLED</span></div>
+                        <div>Monitoring: <span style="color:#ffff00">ACTIVE</span></div>
+                    </div>
                 </div>
-            </div>
-            
-            <div id="mainContent" class="hidden-section">
-                <div class="content-area">
-                    <h2>🛡️ ACTIVATION CONTROL PANEL</h2>
-                    <div class="code-display">
-                        <h3>Windows Activation Code:</h3>
-                        <p id="winCode">W1N-PR0-2024-XYZ-789</p>
-                        <button onclick="copyCode('winCode')">Copy Code</button>
-                    </div>
-                    
-                    <div class="code-display">
-                        <h3>Office Activation Code:</h3>
-                        <p id="officeCode">0FF1C3-PR0-2024-ABC</p>
-                        <button onclick="copyCode('officeCode')">Copy Code</button>
-                    </div>
-                    
-                    <div style="margin-top: 20px;">
-                        <h3>PowerShell Auto-Activator:</h3>
-                        <button onclick="downloadPS1()">Download Activator.ps1</button>
-                        <button onclick="showInstructions()">Show Instructions</button>
+
+                <!-- MAIN CONTENT -->
+                <div id="mainContent" class="hidden">
+                    <div class="main-content">
+                        <h2 style="text-align: center; margin-bottom: 20px;">🎯 QUVNOQ ACTIVATION SUITE</h2>
+                        
+                        <!-- ACTIVATION CODES -->
+                        <div class="activation-grid">
+                            <div class="code-box">
+                                <h3>🪟 WINDOWS ULTIMATE</h3>
+                                <div class="code-value" id="winCode">W1N-QUVN0Q-2024-ULTRA-M4ST3R</div>
+                                <button class="btn" onclick="copyCode('winCode')">📋 Copy Code</button>
+                                <button class="btn btn-cyber" onclick="generateNewCode('winCode')">🔄 Generate New</button>
+                            </div>
+                            <div class="code-box">
+                                <h3>📊 OFFICE PRO</h3>
+                                <div class="code-value" id="officeCode">0FF1C3-PR0-2024-QUVN0Q-X</div>
+                                <button class="btn" onclick="copyCode('officeCode')">📋 Copy Code</button>
+                                <button class="btn btn-cyber" onclick="generateNewCode('officeCode')">🔄 Generate New</button>
+                            </div>
+                        </div>
+
+                        <!-- CONTROL PANEL -->
+                        <div class="control-panel">
+                            <div class="feature-card" onclick="runSecurityScan()">
+                                <div class="feature-icon">🔍</div>
+                                <h4>Security Scan</h4>
+                                <p>System vulnerability check</p>
+                            </div>
+                            <div class="feature-card" onclick="optimizeSystem()">
+                                <div class="feature-icon">⚡</div>
+                                <h4>System Optimize</h4>
+                                <p>Performance boost</p>
+                            </div>
+                            <div class="feature-card" onclick="networkTest()">
+                                <div class="feature-icon">🌐</div>
+                                <h4>Network Test</h4>
+                                <p>Connection analysis</p>
+                            </div>
+                            <div class="feature-card" onclick="backupSystem()">
+                                <div class="feature-icon">💾</div>
+                                <h4>System Backup</h4>
+                                <p>Data protection</p>
+                            </div>
+                        </div>
+
+                        <!-- QUICK ACTIONS -->
+                        <div class="quick-actions">
+                            <button class="btn" onclick="autoActivateSystem()">🚀 Auto Activate All</button>
+                            <button class="btn btn-cyber" onclick="downloadPS1()">⚡ PowerShell Activator</button>
+                            <button class="btn btn-warning" onclick="showInstructions()">📖 Instructions</button>
+                            <button class="btn btn-danger" onclick="emergencyLockdown()">🚨 Emergency Lockdown</button>
+                        </div>
+
+                        <!-- REAL-TIME MONITOR -->
+                        <div class="system-monitor">
+                            <h3>📊 REAL-TIME SYSTEM MONITOR</h3>
+                            <div>CPU Usage: <span id="cpuUsage">0%</span></div>
+                            <div class="gauge"><div class="gauge-fill" id="cpuGauge" style="width: 0%; background: #00ff41;"></div></div>
+                            
+                            <div>RAM Usage: <span id="ramUsage">0%</span></div>
+                            <div class="gauge"><div class="gauge-fill" id="ramGauge" style="width: 0%; background: #00ccff;"></div></div>
+                            
+                            <div>Network: <span id="networkStatus">0 Mbps</span></div>
+                            <div class="gauge"><div class="gauge-fill" id="networkGauge" style="width: 0%; background: #ff00ff;"></div></div>
+                        </div>
+
+                        <!-- ACTIVITY LOG -->
+                        <div class="output-log" id="activityLog" style="max-height: 150px;">
+                            <div class="log-entry info">✅ System initialized successfully</div>
+                            <div class="log-entry info">📁 Activation suite ready</div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button class="btn" onclick="logout()">🚪 Logout</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -149,32 +509,356 @@
     </div>
 
     <script>
-        // Matrix background effect
+        // ==================== KONFIGURATSIYA ====================
+        const CONFIG = {
+            correctPassword: "quvnoq2024",
+            maxAttempts: 3,
+            lockoutTime: 30000 // 30 soniya
+        };
+
+        // ==================== O'ZGARUVCHILAR ====================
+        let attempts = 0;
+        let isLocked = false;
+        let systemMonitorInterval;
+
+        // ==================== ELEMENTLAR ====================
+        const elements = {
+            passwordInput: document.getElementById('passwordInput'),
+            outputLog: document.getElementById('outputLog'),
+            activityLog: document.getElementById('activityLog'),
+            loginSection: document.getElementById('loginSection'),
+            mainContent: document.getElementById('mainContent'),
+            attemptCounter: document.getElementById('attemptCounter'),
+            statusIndicator: document.getElementById('statusIndicator')
+        };
+
+        // ==================== KIRISH TIZIMI ====================
+        elements.passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const input = this.value.trim();
+                
+                if (isLocked) {
+                    addLog("🚨 System temporarily locked! Please wait " + (CONFIG.lockoutTime/1000) + " seconds.", "error");
+                    return;
+                }
+
+                addLog(`> access_code: ${'•'.repeat(input.length)}`, "info");
+
+                if (input === CONFIG.correctPassword) {
+                    handleSuccessfulAccess();
+                } else {
+                    handleFailedAttempt();
+                }
+
+                this.value = '';
+            }
+        });
+
+        function handleSuccessfulAccess() {
+            attempts = 0;
+            updateAttemptCounter();
+            
+            addLog("✅ Access code verified!", "success");
+            addLog("🔓 Security protocols initializing...", "info");
+            addLog("📡 Connecting to secure network...", "info");
+
+            elements.statusIndicator.style.background = "#00ff41";
+            elements.statusIndicator.style.animation = "none";
+
+            setTimeout(() => {
+                elements.loginSection.classList.add('hidden');
+                elements.mainContent.classList.remove('hidden');
+                addActivityLog("🎉 QUVNOQ SECURITY PORTAL ACCESS GRANTED!");
+                startSystemMonitor();
+            }, 2000);
+        }
+
+        function handleFailedAttempt() {
+            attempts++;
+            updateAttemptCounter();
+
+            if (attempts >= CONFIG.maxAttempts) {
+                lockSystem();
+                addLog("🚨 MAXIMUM ATTEMPTS REACHED! System locked for " + (CONFIG.lockoutTime/1000) + " seconds.", "error");
+            } else {
+                addLog(`❌ Invalid code! Attempts remaining: ${CONFIG.maxAttempts - attempts}`, "error");
+            }
+        }
+
+        function updateAttemptCounter() {
+            elements.attemptCounter.textContent = `Attempts: ${attempts}/${CONFIG.maxAttempts}`;
+            
+            if (attempts >= 2) {
+                elements.attemptCounter.style.background = "rgba(255, 0, 51, 0.5)";
+            }
+        }
+
+        function lockSystem() {
+            isLocked = true;
+            elements.passwordInput.disabled = true;
+            
+            setTimeout(() => {
+                isLocked = false;
+                elements.passwordInput.disabled = false;
+                attempts = 0;
+                updateAttemptCounter();
+                addLog("🔓 System lock released. You may try again.", "warning");
+            }, CONFIG.lockoutTime);
+        }
+
+        // ==================== SYSTEM MONITOR ====================
+        function startSystemMonitor() {
+            systemMonitorInterval = setInterval(() => {
+                const cpuUsage = 20 + Math.floor(Math.random() * 60);
+                const ramUsage = 30 + Math.floor(Math.random() * 50);
+                const networkSpeed = (Math.random() * 1000).toFixed(2);
+                
+                document.getElementById('cpuUsage').textContent = cpuUsage + '%';
+                document.getElementById('ramUsage').textContent = ramUsage + '%';
+                document.getElementById('networkStatus').textContent = networkSpeed + ' Mbps';
+                
+                document.getElementById('cpuGauge').style.width = cpuUsage + '%';
+                document.getElementById('ramGauge').style.width = ramUsage + '%';
+                document.getElementById('networkGauge').style.width = Math.min(100, networkSpeed / 10) + '%';
+            }, 2000);
+        }
+
+        // ==================== ASOSIY FUNKSIYALAR ====================
+        function copyCode(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                addActivityLog("✅ Code copied to clipboard: " + text.substring(0, 15) + "...");
+            });
+        }
+
+        function generateNewCode(elementId) {
+            const prefixes = {
+                'winCode': ['WIN', 'PRO', 'ULT', 'ENT', 'COR'],
+                'officeCode': ['OFF', 'PRO', 'BUS', 'ENT', 'ULT']
+            };
+            
+            const prefix = prefixes[elementId][Math.floor(Math.random() * prefixes[elementId].length)];
+            const newCode = `${prefix}-${Math.random().toString(36).substr(2, 8).toUpperCase()}-${Date.now().toString(36).toUpperCase()}`;
+            
+            document.getElementById(elementId).textContent = newCode;
+            addActivityLog("🔄 New code generated: " + elementId);
+        }
+
+        function autoActivateSystem() {
+            addActivityLog("🚀 Starting automatic activation sequence...");
+            
+            const processes = [
+                "Windows License Verification",
+                "Office Product Activation", 
+                "System Registry Update",
+                "Security Protocols",
+                "Final Validation"
+            ];
+            
+            processes.forEach((process, index) => {
+                setTimeout(() => {
+                    addActivityLog(`🔧 ${process}...`);
+                    if (index === processes.length - 1) {
+                        setTimeout(() => {
+                            addActivityLog("✅ All activations completed successfully!");
+                        }, 1000);
+                    }
+                }, (index + 1) * 1000);
+            });
+        }
+
+        function runSecurityScan() {
+            addActivityLog("🔍 Starting security scan...");
+            
+            setTimeout(() => {
+                const threats = Math.random() > 0.7 ? Math.floor(Math.random() * 3) : 0;
+                if (threats > 0) {
+                    addActivityLog(`⚠️ ${threats} potential threats detected`, "warning");
+                } else {
+                    addActivityLog("✅ No security threats found", "success");
+                }
+            }, 3000);
+        }
+
+        function optimizeSystem() {
+            addActivityLog("⚡ Optimizing system performance...");
+            
+            setTimeout(() => {
+                const improvement = 15 + Math.floor(Math.random() * 25);
+                addActivityLog(`✅ System performance improved by ${improvement}%`, "success");
+            }, 2500);
+        }
+
+        function networkTest() {
+            addActivityLog("🌐 Testing network connection...");
+            
+            setTimeout(() => {
+                const speed = (50 + Math.random() * 450).toFixed(1);
+                const latency = Math.floor(Math.random() * 100);
+                addActivityLog(`📊 Network: ${speed} Mbps | Ping: ${latency}ms`, "info");
+            }, 2000);
+        }
+
+        function backupSystem() {
+            addActivityLog("💾 Creating system backup...");
+            
+            setTimeout(() => {
+                addActivityLog("✅ Backup completed successfully", "success");
+            }, 3000);
+        }
+
+        function downloadPS1() {
+            const ps1Content = `# QUVNOQ ACTIVATION SUITE v2.0
+# Advanced System Activator
+# Generated: ${new Date().toLocaleString()}
+
+Write-Host "=== QUVNOQ ACTIVATION SYSTEM ===" -ForegroundColor Green
+Write-Host "Initializing quantum activation protocol..." -ForegroundColor Yellow
+
+# System Information
+$systemInfo = Get-WmiObject -Class Win32_ComputerSystem
+$osInfo = Get-WmiObject -Class Win32_OperatingSystem
+
+Write-Host "Computer: $($systemInfo.Manufacturer) $($systemInfo.Model)" -ForegroundColor Cyan
+Write-Host "OS: $($osInfo.Caption)" -ForegroundColor Cyan
+Write-Host "User: $env:USERNAME" -ForegroundColor Cyan
+
+# Activation Process
+function Invoke-QuantumActivation {
+    Write-Host "Starting quantum activation sequence..." -ForegroundColor Yellow
+    
+    # Progress simulation
+    for ($i = 1; $i -le 10; $i++) {
+        Write-Progress -Activity "Quantum Activation" -Status "Progress: $i*10%" -PercentComplete ($i*10)
+        Start-Sleep -Milliseconds 300
+    }
+    
+    Write-Host "Quantum activation completed successfully!" -ForegroundColor Green
+}
+
+# Execute activation
+try {
+    Invoke-QuantumActivation
+    Write-Host "All systems activated successfully!" -ForegroundColor Green
+} catch {
+    Write-Host "Activation failed: $_" -ForegroundColor Red
+}
+
+Write-Host "Press any key to exit..." -ForegroundColor Gray
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")`;
+
+            const blob = new Blob([ps1Content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Quvnoq_Quantum_Activator.ps1';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            addActivityLog("📥 PowerShell activator downloaded");
+        }
+
+        function showInstructions() {
+            alert(`🎯 QUVNOQ ACTIVATION INSTRUCTIONS:
+
+1. Download the PowerShell script
+2. Right-click and "Run with PowerShell"
+3. Follow the quantum activation process
+4. Use the provided activation codes
+5. Keep your system secure
+
+🔒 FOR AUTHORIZED USE ONLY!`);
+        }
+
+        function emergencyLockdown() {
+            if (confirm("🚨 EMERGENCY LOCKDOWN - This will terminate all sessions! Continue?")) {
+                addActivityLog("🚨 EMERGENCY LOCKDOWN ACTIVATED!", "error");
+                
+                clearInterval(systemMonitorInterval);
+                
+                setTimeout(() => {
+                    document.body.innerHTML = `
+                        <div style="background: black; color: red; height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center;">
+                            <h1 style="font-size: 48px; margin-bottom: 20px;">🚨 SYSTEM LOCKDOWN</h1>
+                            <p style="font-size: 24px; color: lime;">All sessions terminated</p>
+                            <p style="color: yellow; margin-top: 20px;">Security protocols engaged</p>
+                            <button onclick="location.reload()" style="margin-top: 30px; padding: 15px 30px; background: red; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                                REBOOT SYSTEM
+                            </button>
+                        </div>
+                    `;
+                }, 2000);
+            }
+        }
+
+        function logout() {
+            addActivityLog("🚪 Logging out...", "warning");
+            
+            clearInterval(systemMonitorInterval);
+            
+            setTimeout(() => {
+                elements.mainContent.classList.add('hidden');
+                elements.loginSection.classList.remove('hidden');
+                attempts = 0;
+                updateAttemptCounter();
+                elements.statusIndicator.style.background = "#ff0033";
+                elements.statusIndicator.style.animation = "pulse 2s infinite";
+                
+                addLog("✅ Logged out successfully", "success");
+                addLog("🔐 Authentication required for access", "warning");
+            }, 1500);
+        }
+
+        // ==================== YORDAMCHI FUNKSIYALAR ====================
+        function addLog(message, type = "info") {
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${type}`;
+            logEntry.textContent = message;
+            elements.outputLog.appendChild(logEntry);
+            elements.outputLog.scrollTop = elements.outputLog.scrollHeight;
+        }
+
+        function addActivityLog(message, type = "info") {
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${type}`;
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            elements.activityLog.appendChild(logEntry);
+            elements.activityLog.scrollTop = elements.activityLog.scrollHeight;
+        }
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            addLog("🚀 QUVNOQ Security System Initialized", "success");
+            addLog("📍 System ready for secure access", "info");
+        });
+
+        // Matrix effect for background
         function createMatrix() {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            const matrixBg = document.getElementById('matrixBg');
-            matrixBg.appendChild(canvas);
+            const matrixBg = document.querySelector('.cyber-grid');
             
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             
-            const chars = "01010101010101010101ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@%&";
+            const chars = "01010101010101010101QUVNOQ2024CYBERSECURITY";
             const charArray = chars.split("");
             const fontSize = 14;
             const columns = canvas.width / fontSize;
             const drops = [];
             
             for(let i = 0; i < columns; i++) {
-                drops[i] = 1;
+                drops[i] = Math.random() * canvas.height;
             }
             
             function draw() {
-                ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+                ctx.fillStyle = "rgba(10, 10, 10, 0.04)";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                ctx.fillStyle = "#00ff00";
-                ctx.font = fontSize + "px courier";
+                ctx.fillStyle = "#00ff41";
+                ctx.font = fontSize + "px monospace";
                 
                 for(let i = 0; i < drops.length; i++) {
                     const text = charArray[Math.floor(Math.random() * charArray.length)];
@@ -188,176 +872,10 @@
             }
             
             setInterval(draw, 35);
+            matrixBg.appendChild(canvas);
         }
-        
-        // Password check
-        const passwordInput = document.getElementById('passwordInput');
-        const output = document.getElementById('output');
-        const loginSection = document.getElementById('loginSection');
-        const mainContent = document.getElementById('mainContent');
-        
-        // Correct password (you can change this)
-        const correctPassword = "mysecret2024";
-        
-        passwordInput.addEventListener('keypress', function(e) {
-            if(e.key === 'Enter') {
-                const input = this.value;
-                output.innerHTML += `<div>> access_code: ${'*'.repeat(input.length)}</div>`;
-                
-                if(input === correctPassword) {
-                    output.innerHTML += `<div style="color:#00ff00">> Access granted! Initializing system...</div>`;
-                    setTimeout(() => {
-                        loginSection.style.display = 'none';
-                        mainContent.style.display = 'block';
-                    }, 2000);
-                } else {
-                    output.innerHTML += `<div style="color:#ff0000">> Access denied! Invalid code.</div>`;
-                    this.value = '';
-                }
-            }
-        });
-        
-        // Copy code function
-        function copyCode(elementId) {
-            const text = document.getElementById(elementId).textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Code copied to clipboard!');
-            });
-        }
-        
-        // Download PowerShell script
-        function downloadPS1() {
-            const ps1Content = `# Windows & Office Auto-Activator
-# Private Use Only
 
-Write-Host "Initializing activation sequence..." -ForegroundColor Yellow
-
-# System check
-\$osInfo = Get-WmiObject -Class Win32_OperatingSystem
-\$computerName = \$env:COMPUTERNAME
-\$userName = \$env:USERNAME
-
-Write-Host "System: \$(\$osInfo.Caption)" -ForegroundColor Cyan
-Write-Host "Computer: \$computerName" -ForegroundColor Cyan
-Write-Host "User: \$userName" -ForegroundColor Cyan
-
-# Create activation form
-Add-Type -AssemblyName System.Windows.Forms
-Add-Type -AssemblyName System.Drawing
-
-\$form = New-Object System.Windows.Forms.Form
-\$form.Text = "Advanced Activation Suite"
-\$form.Size = New-Object System.Drawing.Size(500, 400)
-\$form.StartPosition = "CenterScreen"
-\$form.BackColor = [System.Drawing.Color]::FromArgb(15, 15, 15)
-\$form.ForeColor = [System.Drawing.Color]::Lime
-
-# Main label
-\$label = New-Object System.Windows.Forms.Label
-\$label.Location = New-Object System.Drawing.Point(20, 20)
-\$label.Size = New-Object System.Drawing.Size(450, 30)
-\$label.Text = "SECURE ACTIVATION CONTROL PANEL"
-\$label.Font = New-Object System.Drawing.Font("Consolas", 12, [System.Drawing.FontStyle]::Bold)
-\$form.Controls.Add(\$label)
-
-# Progress bar
-\$progressBar = New-Object System.Windows.Forms.ProgressBar
-\$progressBar.Location = New-Object System.Drawing.Point(20, 70)
-\$progressBar.Size = New-Object System.Drawing.Size(450, 20)
-\$form.Controls.Add(\$progressBar)
-
-# Status textbox
-\$statusBox = New-Object System.Windows.Forms.TextBox
-\$statusBox.Location = New-Object System.Drawing.Point(20, 110)
-\$statusBox.Size = New-Object System.Drawing.Size(450, 150)
-\$statusBox.Multiline = \$true
-\$statusBox.ScrollBars = "Vertical"
-\$statusBox.BackColor = [System.Drawing.Color]::FromArgb(25, 25, 25)
-\$statusBox.ForeColor = [System.Drawing.Color]::Lime
-\$statusBox.Font = New-Object System.Drawing.Font("Consolas", 9)
-\$statusBox.Text = "System ready for activation...\r\n"
-\$form.Controls.Add(\$statusBox)
-
-# Buttons
-\$winButton = New-Object System.Windows.Forms.Button
-\$winButton.Location = New-Object System.Drawing.Point(20, 280)
-\$winButton.Size = New-Object System.Drawing.Size(120, 30)
-\$winButton.Text = "Activate Windows"
-\$winButton.BackColor = [System.Drawing.Color]::FromArgb(0, 80, 0)
-\$winButton.ForeColor = [System.Drawing.Color]::White
-\$winButton.Add_Click({
-    \$statusBox.Text += "\r\n> Starting Windows activation...\r\n"
-    for (\$i = 0; \$i -le 100; \$i += 10) {
-        \$progressBar.Value = \$i
-        Start-Sleep -Milliseconds 200
-    }
-    \$statusBox.Text += "> Windows activation completed!\\r\\n"
-})
-\$form.Controls.Add(\$winButton)
-
-\$officeButton = New-Object System.Windows.Forms.Button
-\$officeButton.Location = New-Object System.Drawing.Point(160, 280)
-\$officeButton.Size = New-Object System.Drawing.Size(120, 30)
-\$officeButton.Text = "Activate Office"
-\$officeButton.BackColor = [System.Drawing.Color]::FromArgb(0, 80, 0)
-\$officeButton.ForeColor = [System.Drawing.Color]::White
-\$officeButton.Add_Click({
-    \$statusBox.Text += "\r\n> Starting Office activation...\r\n"
-    for (\$i = 0; \$i -le 100; \$i += 10) {
-        \$progressBar.Value = \$i
-        Start-Sleep -Milliseconds 150
-    }
-    \$statusBox.Text += "> Office activation completed!\\r\\n"
-})
-\$form.Controls.Add(\$officeButton)
-
-\$autoButton = New-Object System.Windows.Forms.Button
-\$autoButton.Location = New-Object System.Drawing.Point(300, 280)
-\$autoButton.Size = New-Object System.Drawing.Size(120, 30)
-\$autoButton.Text = "Auto Activate All"
-\$autoButton.BackColor = [System.Drawing.Color]::FromArgb(80, 0, 0)
-\$autoButton.ForeColor = [System.Drawing.Color]::White
-\$autoButton.Add_Click({
-    \$statusBox.Text += "\r\n> Starting full system activation...\\r\\n"
-    for (\$i = 0; \$i -le 100; \$i += 5) {
-        \$progressBar.Value = \$i
-        Start-Sleep -Milliseconds 100
-    }
-    \$statusBox.Text += "> All activations completed successfully!\\r\\n"
-})
-\$form.Controls.Add(\$autoButton)
-
-# Show form
-\$form.Add_Shown({\$form.Activate()})
-\$form.ShowDialog() | Out-Null
-
-Write-Host "Activation process completed!" -ForegroundColor Green`;
-
-            const blob = new Blob([ps1Content], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'AdvancedActivator.ps1';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-        
-        function showInstructions() {
-            alert(`ACTIVATION INSTRUCTIONS:
-
-1. Download the PowerShell script
-2. Right-click and "Run with PowerShell"
-3. Follow the on-screen instructions
-4. Use the activation codes provided above
-
-⚠️  FOR PERSONAL USE ONLY!`);
-        }
-        
-        // Initialize
         createMatrix();
-        output.innerHTML = `<div>> System booting...</div><div>> Loading security modules...</div><div>> Ready for access code input</div>`;
     </script>
 </body>
 </html>
